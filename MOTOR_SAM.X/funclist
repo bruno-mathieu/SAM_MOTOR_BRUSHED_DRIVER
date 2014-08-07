@@ -1,0 +1,25 @@
+_PutCANTxFifo: CODE, 3948 0 148
+_GetCanAdress: CODE, 4740 0 6
+_ECANReceiveMessage: CODE, 2572 0 358
+__RegsToCANID: CODE, 2200 0 372
+_SystemTest: CODE, 4746 0 4
+_GetCANRxFifo: CODE, 3150 0 220
+_ConfigureTimers: CODE, 4512 0 64
+_ConfigureOscillator: CODE, 4726 0 14
+_main: CODE, 294 0 954
+_high_isr: CODE, 8 0 3758
+__initialization: CODE, 4640 0 48
+_ConfigureInterrupts: CODE, 4222 0 80
+_GetCANTxFifo: CODE, 2930 0 220
+_ECANInitialize: CODE, 3370 0 198
+_PutCANRxFifo: CODE, 4096 0 126
+_CANRxFifoInit: CODE, 4446 0 66
+_ConfigureCCP: CODE, 4302 0 78
+_ConfigureGPIO: CODE, 4576 0 64
+_ECANFiltersInit: CODE, 3766 0 182
+__CANIDToRegs: CODE, 1248 0 480
+_CANTxFifoInit: CODE, 4380 0 66
+_low_isr: CODE, 24 0 266
+_ECANSetOperationMode: CODE, 4694 0 32
+_ECANSendMessage: CODE, 1728 0 472
+Total: 8276
