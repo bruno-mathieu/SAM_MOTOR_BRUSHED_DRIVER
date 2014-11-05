@@ -22,10 +22,7 @@
 
 
 extern struct CANRxFifo CANRxFifo;
-
-extern struct SoundMsg SoundMsg;
-extern char SoundTimerTicked;
-extern struct KeybMsg KeybMsg;
+extern unsigned char msTickCounter;
 
 /******************************************************************************/
 /* Interrupt Routines                                                         */
@@ -84,7 +81,7 @@ void low_isr(void)
     {
         INTCONbits.TMR0IF=0;        // Clear interrupt flag
 
-        
+        msTickCounter=TRUE;
 
         TMR0H = TMR0H_INIT;
         TMR0L = TMR0L_INIT;         // preload for 10ms overflow

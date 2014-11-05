@@ -12,19 +12,17 @@
 extern "C" {
 #endif
 
-
-
-
 #ifdef	__cplusplus
 }
 #endif
 
 #endif	/* DEFINE_H */
 
+
 #define MAJOR_SW_VERSION 1
 #define MINOR_SW_VERSION 0
 
-#define BOARD_NUMBER 1
+#define BOARD_NUMBER 3
 #define BOARD_REVISION 1
 
 #define _XTAL_FREQ 64000000
@@ -32,103 +30,75 @@ extern "C" {
 #define TMR0H_INIT  0xFB              // TMR0 value for 10ms tick
 #define TMR0L_INIT  0x1E              // TMR0 value for 10ms tick
 
-#define IHM_TICK_PERIOD 4             // IHM polling ticks each 10ms
+#define MOTOR_TICK_PERIOD 4             // IHM polling ticks each 10ms
 
+//-------------------- define for CAN bus -------------
 
+#define CANTX_FIFO_SIZE 10
+#define CANRX_FIFO_SIZE 10
 
+#define CAN_MESSAGE_MOTOR_TYPE 0x07
 
-#define CAN_MESSAGE_IHM_TYPE 0x07
+// motor order message
+#define MOTOR_ORDER_TYPE 0x0
+#define MOTOR_ORDER_LEN 2
 
+// motor config message
+#define MOTOR_CONFIG_TYPE 0x1
+#define MOTOR_CONFIG_LEN 4
 
-// ***  messages dedicated to LCD display  ************
+// motor info message
+#define MOTOR_INFO_TYPE 0x2
+#define MOTOR_INFO_LEN 3
 
-#define LCD_MSG_TYPE 0
+// motor temperature message
+#define MOTOR_TEMP_TYPE 0x3
+#define MOTOR_TEMP_LEN 1
 
-#define LCD_CLEAR_MSG_CODE 0x1
-#define LCD_SEND_CHAR_MSG_CODE 0x2
-#define LCD_SEND_COMMAND_MSG_CODE 0x3
+// motor odometry message
+#define MOTOR_ODOM_TYPE 0x5
+#define MOTOR_ODOM_LEN 2
 
-#define LCD_CLEAR_MSG_LEN 1
-#define LCD_SEND_CHAR_MSG_LEN 3
-#define LCD_SEND_COMMAND_MSG_LEN 2
-
-// ***  messages dedicated to Keyboard  ************
-
-#define KEYB_MSG_TYPE 0x1
-#define KEYB_MSG_LEN 1
-
-// ***  messages dedicated to IHM Leds  ************
-
-#define LED_MSG_TYPE        0x2
-#define LED_MSG_LEN         2
-
-// ***  messages dedicated to Buzzer  ************
-
-#define SOUND_MSG_TYPE      0x3
-
-#define SOUND_CONT_MSG_CODE 0x1
-#define SOUND_INT_MSG_CODE  0x2
-#define SOUND_STOP_MSG_CODE 0x3
-
-#define SOUND_CONT_MSG_LEN  0x4
-#define SOUND_INT_MSG_LEN   0x6
-#define SOUND_STOP_MSG_LEN  0x1
-
-// **** testability message ************
-
-#define STATUS_MSG_TYPE     0x4
-#define STATUS_MSG_LEN      0x1
-
-// **** Keyboard configuration message ************
-
-#define KEYB_CONFIG_MSG_TYPE     0x5
-#define KEYB_CONFIG_MSG_LEN      0x2
-
-// **** LCD contrast message ************
-
-#define LCD_CONTRAST_MSG_TYPE     0x7
-#define LCD_CONTRAST_MSG_LEN      0x1
-
-// **** LCD Backlight message ************
-
-#define LCD_BACKLIGHT_MSG_TYPE     0x8
-#define LCD_BACKLIGHT_MSG_LEN      0x1
-
-
-
-
-#define SOFT_VERSION_MESSAGE_ADRESS 0x6
+#define SOFT_VERSION_MESSAGE_ADRESS 0x4
 #define SOFT_VERSION_MESSAGE_LEN 2
 
 #define BOARD_VERSION_MESSAGE_ADRESS 0xF
 #define BOARD_VERSION_MESSAGE_LEN 2
 
-// sound types
 
-#define CONTINOUS 1
-#define INTERMITENT 2
-#define OFF 0
+//-------------------- define for motor control -------------
 
-// sound phases
-#define ONPhase 1
-#define OFFPhase 2
+#define MEAN_TABLE_SIZE 64
 
-// keyboard define
+#define CCP_PWM_MODE 0x0F
+#define CW 1
+#define CCW 0
+#define MOTOR_OFF 2
 
-#define KEYB_RELEASED_CODE 0x00
+#define PH1_H LATDbits.LATD3
+#define PH2_H LATDbits.LATD4
+#define PH1_L LATCbits.LATC2
+#define PH2_L LATCbits.LATC6
 
-#define CANTX_FIFO_SIZE 10
-#define CANRX_FIFO_SIZE 10
+#define REVERSE_TH 10
 
+#define CW_MIN_SPEED 70
+#define CW_MAX_SPEED 100
 
-#define LCD_RS LATEbits.LATE0
-#define LCD_RW LATEbits.LATE1
-#define LCD_EN LATEbits.LATE2
+//------------------- define for key codes ------------------
 
+#define KEY_NONE 0b00000000
+#define KEY_FRONT 0b00010000
+#define KEY_REV 0b00100000
+#define KEY_BOTH 0b00110000
+
+#define THROTTLE_OFFSET 0x297
+#define THROTTLE_MAX_VALUE 0x8DA
+#define THROTTLE_DIVIDER 18
+
+#define SPEED_REGULATOR_THRESHOLD 25
 
 #define TRUE    1
 #define FALSE   0
 
-#define LCD_BUSY 1
-#define LCD_READY 0
 

@@ -22,6 +22,7 @@
 #include "define.h"        /* board level definitions*/
 #include "ecanpoll.h"      /* CAN library header file*/
 #include "Can_HL.h"
+#include "motor.h"
 
 
 /******************************************************************************/
@@ -29,24 +30,19 @@
 /******************************************************************************/
 
 // structure used to count 10ms tick
-struct RTC_counter TickCounter;
+unsigned char msTickCounter;
 
 //  variable for CAN  FIFO buffer and CAN adress
 struct CANTxFifo CANTxFifo;
 struct CANRxFifo CANRxFifo;
 char LocalCanAdress;
+char MotorTypeIdentifierAdress;      // left or right motor adress
 
-// variable used for sound generation
-struct SoundMsg SoundMsg;
+// variables used for motor
 
-// flag for sound timer tick
-char SoundTimerTicked;
-
-// variable  used for keyboard
-struct KeybMsg KeybMsg;
-
-// variable used for led display
-struct LedDisp LedDisp;
+char TempMotorOrdertable[MEAN_TABLE_SIZE];
+struct MotionOrder UserOrder ;
+struct MotionOrder MotorOrder ;
 
 /******************************************************************************/
 /* Main Program                                                               */
@@ -56,6 +52,11 @@ void main(void)
 {
     char TempVar;
     unsigned int TempVarInt;
+
+    char OldKeyCode;
+    char KeyEvent;
+    char OrderLocked=FALSE;
+    char ThrottlePosition;
 
     // Autotest result
     char AutotestResult;
@@ -81,9 +82,9 @@ void main(void)
     //Get can adress from rotary switch
     LocalCanAdress = GetCanAdress();
     //CAN controller Initialize
-    ECANInitialize();
+    //ECANInitialize();
     //Set MASK and Filters for CAN
-    ECANFiltersInit();
+    //ECANFiltersInit();
 
     // Timers configuration
     ConfigureTimers();
@@ -95,9 +96,20 @@ void main(void)
     //----------  Global variables initialisation --------
     //----------------------------------------------------
 
+    // used for 10ms tick
+    msTickCounter=FALSE;
+
      // initialize CAN tx FIFO
     CANTxFifoInit();
     CANRxFifoInit();
+
+    // initialise Motor table variable
+    MotorInitVar();
+    UserOrder.PowerValue=0;
+    MotorOrder.PowerValue=0;
+
+    OldKeyCode=GetKeyCode();
+    KeyEvent=FALSE;
 
     //----------------------------------------------------
     //------  external peripheral configurations: --------
@@ -113,17 +125,19 @@ void main(void)
     ConfigureInterrupts();
 
     AutotestResult = SystemTest();
-
     
     //-----------------------------------------------------
     //-------------  infinite main loop ----------
     //----------------------------------------------------
 
- 
+    PutMotorOrder(0,MOTOR_OFF);     // set motor OFF
+
+//    UserOrder.PowerValue=100;                  // set user order to 100% for test
+//    UserOrder.direction=CW;                     // clockwise direction for test
+
     while(1)
     {
        
-    
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
@@ -131,78 +145,102 @@ void main(void)
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
         //--------------------------------------------------------------------------------
-        
 
         //--------------------------------------------------------------------------------
-        //-------------         CAN command interpretor for received messages   ----------
+        //-------------                 10ms tick tasks                         ----------
         //--------------------------------------------------------------------------------
 
-        //****  LCD message *****
-       
-        if (!CANRxFifo.FifoEmpty)
+        if(msTickCounter==TRUE)
         {
+            MotorMeanComputation();
+            msTickCounter=FALSE;
+            PutMotorOrder(MotorOrder.PowerValue,MotorOrder.direction);
 
-            TempCANRxMsg = GetCANRxFifo();
+            ThrottlePosition=GetThrotle();
 
-            if (TempCANRxMsg.id == (CAN_MESSAGE_IHM_TYPE << 7 | LocalCanAdress << 4 | LCD_MSG_TYPE))
+            // if no key is pressed, and order is not locked,
+            if(GetKeyCode()==KEY_NONE && OrderLocked==FALSE)
             {
-                if (TempCANRxMsg.data_RX[0] == LCD_CLEAR_MSG_CODE && TempCANRxMsg.dataLen == LCD_CLEAR_MSG_LEN)
-                {
-                    
-                }
-                else if (TempCANRxMsg.data_RX[0] == LCD_SEND_CHAR_MSG_CODE && TempCANRxMsg.dataLen == LCD_SEND_CHAR_MSG_LEN)
-                {
-                   
-                }
-                else if (TempCANRxMsg.data_RX[0] == LCD_SEND_COMMAND_MSG_CODE && TempCANRxMsg.dataLen == LCD_SEND_COMMAND_MSG_LEN)
-                {
-                    
-                }
+                UserOrder.PowerValue=ThrottlePosition;
+                UserOrder.direction=CW;
             }
 
-           
-            //****  Software Version message *****
+            // if order is locked, and throttle position <20%, release speed regulator
 
-            else if (TempCANRxMsg.id == (CAN_MESSAGE_IHM_TYPE << 7 | LocalCanAdress << 4 | SOFT_VERSION_MESSAGE_ADRESS))
+            if(OrderLocked==TRUE && ThrottlePosition<SPEED_REGULATOR_THRESHOLD)
             {
-                if (TempCANRxMsg.dataLen == SOFT_VERSION_MESSAGE_LEN && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
-                {
-                    TempCANTxMsg.data_TX[0]=MAJOR_SW_VERSION;
-                    TempCANTxMsg.data_TX[1]=MINOR_SW_VERSION;
-                    TempCANTxMsg.dataLen= SOFT_VERSION_MESSAGE_LEN;
-                    TempCANTxMsg.id = (CAN_MESSAGE_IHM_TYPE << 7 | LocalCanAdress <<4 | SOFT_VERSION_MESSAGE_ADRESS );
-                    TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
-                    PutCANTxFifo(TempCANTxMsg);
-                }
+                UserOrder.PowerValue=ThrottlePosition;
+                UserOrder.direction=CW;
+                OrderLocked=FALSE;
             }
 
-            //****  Hardware Version message *****
-
-            else if (TempCANRxMsg.id == (CAN_MESSAGE_IHM_TYPE << 7 | LocalCanAdress << 4 | BOARD_VERSION_MESSAGE_ADRESS))
+            // if in reverse mode or motor order =0, and reverse key pressed
+            if(GetKeyCode()==KEY_REV && (UserOrder.direction==CCW || UserOrder.PowerValue==0))
             {
-                
-                if (TempCANRxMsg.dataLen == BOARD_VERSION_MESSAGE_LEN && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
-                {
-                    TempCANTxMsg.data_TX[0]=BOARD_NUMBER;
-                    TempCANTxMsg.data_TX[1]=BOARD_REVISION;
-                    TempCANTxMsg.dataLen= BOARD_VERSION_MESSAGE_LEN;
-                    TempCANTxMsg.id = (CAN_MESSAGE_IHM_TYPE << 7 | LocalCanAdress <<4 | BOARD_VERSION_MESSAGE_ADRESS );
-                    TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
-                    PutCANTxFifo(TempCANTxMsg);
-                }
+                UserOrder.PowerValue=50;
+                UserOrder.direction=CCW;
             }
+
+            // if in normal mode, rev key pressed, and speed is enough to lock regulator
+            if(GetKeyCode()==KEY_REV && OrderLocked==FALSE && UserOrder.direction==CW && UserOrder.PowerValue>SPEED_REGULATOR_THRESHOLD)
+            {
+                OrderLocked=TRUE;
+                UserOrder.PowerValue=ThrottlePosition;
+                UserOrder.direction=CW;
+            }
+            
+
+//            //------- check to see if REV button has been pressed after FRONT
+//
+//
+//            if(GetKeyCode()== KEY_BOTH && OldKeyCode==KEY_FRONT && KeyEvent==FALSE)
+//            {
+//                KeyEvent=TRUE;
+//            }
+//
+//            //------- scan for keys, and load the user order, according to keys
+//
+//            if(GetKeyCode()==KEY_NONE)
+//            {
+//                UserOrder.PowerValue=0;
+//
+//            }
+//
+//            if(GetKeyCode()==KEY_FRONT || GetKeyCode()==KEY_BOTH )
+//            {
+//                if(UserOrder.PowerValue!=CW_MAX_SPEED && UserOrder.PowerValue!=CW_MIN_SPEED  )
+//                {
+//                    UserOrder.PowerValue=CW_MAX_SPEED;
+//                    UserOrder.direction=CW;
+//
+//                }
+//
+//                if(KeyEvent && UserOrder.PowerValue==CW_MAX_SPEED )
+//                {
+//                    UserOrder.PowerValue=CW_MIN_SPEED;
+//                    UserOrder.direction=CW;
+//                    KeyEvent=FALSE;
+//                }
+//                if(KeyEvent && UserOrder.PowerValue==CW_MIN_SPEED )
+//                {
+//                    UserOrder.PowerValue=CW_MAX_SPEED;
+//                    UserOrder.direction=CW;
+//                    KeyEvent=FALSE;
+//                }
+//            }
+//
+//            if(GetKeyCode()==KEY_REV)
+//            {
+//                UserOrder.PowerValue=70;
+//                UserOrder.direction=CCW;
+//
+//            }
+//
+//
+//            OldKeyCode=GetKeyCode();
+
         }
-
-
-        //--------------------------------------------------------------------------------
-        // ---  Send can message if TXB0 buffer free, and data available in CAN TX FIFO --
-        //--------------------------------------------------------------------------------
-        
-        if(!CANTxFifo.FifoEmpty && !TXB0CONbits.TXREQ)          // if fifo is not empty and buffer0 empty
-        {
-            TempCANTxMsg=GetCANTxFifo();
-            ECANSendMessage(TempCANTxMsg.id,TempCANTxMsg.data_TX,TempCANTxMsg.dataLen,TempCANTxMsg.flags);  // fill tx buffer with Fifo data
-        }
+              
 
 
     }

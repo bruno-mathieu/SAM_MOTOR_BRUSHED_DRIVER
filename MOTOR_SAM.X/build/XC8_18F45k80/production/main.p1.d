@@ -6,5 +6,6 @@ ecanpoll.h  \
 ECANPoll.h  \
 system.h  \
 Define.h  \
+motor.h  \
 Can_HL.h  \
 ecanpoll.def 

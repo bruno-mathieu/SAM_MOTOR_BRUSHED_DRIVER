@@ -22361,11 +22361,9 @@ BYTE type );
 static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
 
 # 22 "system.h"
-struct RTC_counter {
-unsigned char AccelTick_ms;
-unsigned char GyroTick_ms;
-unsigned char MagnetTick_ms;
-
+struct MotionOrder{
+unsigned char PowerValue;
+unsigned char direction;
 };
 
 struct CANTxMsg{
@@ -22445,7 +22443,7 @@ char LedDiplayCycle;
 
 };
 
-# 115
+# 113
 void ConfigureOscillator(void);
 void ConfigureGPIO(void);
 void ConfigureAnalog(void);
@@ -22455,6 +22453,9 @@ void ConfigureTimers(void);
 char SystemTest(void);
 void ConfigureCCP(void);
 char GetCanAdress(void);
+char GetKeyCode(void);
+
+char GetThrotle(void);
 
 # 24 "Can_HL.h"
 void CANTxFifoInit(void);
@@ -22467,31 +22468,36 @@ struct CANRxMsg GetCANRxFifo(void);
 
 void ECANFiltersInit(void);
 
-# 32 "main.c"
-struct RTC_counter TickCounter;
+# 24 "motor.h"
+void PutMotorOrder(char value,char direction);
+void MotorInitVar(void);
+void MotorMeanComputation(void);
+
+# 33 "main.c"
+unsigned char msTickCounter;
 
 
 struct CANTxFifo CANTxFifo;
 struct CANRxFifo CANRxFifo;
 char LocalCanAdress;
+char MotorTypeIdentifierAdress;
 
 
-struct SoundMsg SoundMsg;
 
+char TempMotorOrdertable[64];
+struct MotionOrder UserOrder ;
+struct MotionOrder MotorOrder ;
 
-char SoundTimerTicked;
-
-
-struct KeybMsg KeybMsg;
-
-
-struct LedDisp LedDisp;
-
-# 55
+# 51
 void main(void)
 {
 char TempVar;
 unsigned int TempVarInt;
+
+char OldKeyCode;
+char KeyEvent;
+char OrderLocked=0;
+char ThrottlePosition;
 
 
 char AutotestResult;
@@ -22502,7 +22508,7 @@ struct CANTxMsg TempCANTxMsg;
 
 struct CANRxMsg TempCANRxMsg;
 
-# 75
+# 76
 ConfigureOscillator();
 _delay((unsigned long)((10)*(64000000/4000.0)));
 
@@ -22512,93 +22518,87 @@ ConfigureGPIO();
 
 LocalCanAdress = GetCanAdress();
 
-ECANInitialize();
-
-ECANFiltersInit();
-
-
+# 90
 ConfigureTimers();
 
 
 ConfigureCCP();
 
-# 99
+# 100
+msTickCounter=0;
+
+
 CANTxFifoInit();
 CANRxFifoInit();
 
-# 106
+
+MotorInitVar();
+UserOrder.PowerValue=0;
+MotorOrder.PowerValue=0;
+
+OldKeyCode=GetKeyCode();
+KeyEvent=0;
+
+# 118
 _delay((unsigned long)((10)*(64000000/4000.0)));
 
-# 113
+# 125
 ConfigureInterrupts();
 
 AutotestResult = SystemTest();
 
-# 123
+# 133
+PutMotorOrder(0,2);
+
+
+
+
 while(1)
 {
 
-# 142
-if (!CANRxFifo.FifoEmpty)
+# 153
+if(msTickCounter==1)
 {
+MotorMeanComputation();
+msTickCounter=0;
+PutMotorOrder(MotorOrder.PowerValue,MotorOrder.direction);
 
-TempCANRxMsg = GetCANRxFifo();
+ThrottlePosition=GetThrotle();
 
-if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0))
+
+if(GetKeyCode()==0b00000000 && OrderLocked==0)
 {
-if (TempCANRxMsg.data_RX[0] == 0x1 && TempCANRxMsg.dataLen == 1)
-{
-
-}
-else if (TempCANRxMsg.data_RX[0] == 0x2 && TempCANRxMsg.dataLen == 3)
-{
-
-}
-else if (TempCANRxMsg.data_RX[0] == 0x3 && TempCANRxMsg.dataLen == 2)
-{
-
-}
+UserOrder.PowerValue=ThrottlePosition;
+UserOrder.direction=1;
 }
 
 
 
-
-else if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0x6))
+if(OrderLocked==1 && ThrottlePosition<25)
 {
-if (TempCANRxMsg.dataLen == 2 && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
+UserOrder.PowerValue=ThrottlePosition;
+UserOrder.direction=1;
+OrderLocked=0;
+}
+
+
+if(GetKeyCode()==0b00100000 && (UserOrder.direction==0 || UserOrder.PowerValue==0))
 {
-TempCANTxMsg.data_TX[0]=1;
-TempCANTxMsg.data_TX[1]=0;
-TempCANTxMsg.dataLen= 2;
-TempCANTxMsg.id = (0x07 << 7 | LocalCanAdress <<4 | 0x6 );
-TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
-PutCANTxFifo(TempCANTxMsg);
-}
+UserOrder.PowerValue=50;
+UserOrder.direction=0;
 }
 
 
-
-else if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0xF))
+if(GetKeyCode()==0b00100000 && OrderLocked==0 && UserOrder.direction==1 && UserOrder.PowerValue>25)
 {
-
-if (TempCANRxMsg.dataLen == 2 && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
-{
-TempCANTxMsg.data_TX[0]=1;
-TempCANTxMsg.data_TX[1]=1;
-TempCANTxMsg.dataLen= 2;
-TempCANTxMsg.id = (0x07 << 7 | LocalCanAdress <<4 | 0xF );
-TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
-PutCANTxFifo(TempCANTxMsg);
-}
-}
+OrderLocked=1;
+UserOrder.PowerValue=ThrottlePosition;
+UserOrder.direction=1;
 }
 
-# 201
-if(!CANTxFifo.FifoEmpty && !TXB0CONbits.TXREQ)
-{
-TempCANTxMsg=GetCANTxFifo();
-ECANSendMessage(TempCANTxMsg.id,TempCANTxMsg.data_TX,TempCANTxMsg.dataLen,TempCANTxMsg.flags);
+# 242
 }
+
 
 
 }

@@ -22,6 +22,7 @@
 extern struct CANTxFifo CANTxFifo;
 extern struct CANRxFifo CANRxFifo;
 extern char LocalCanAdress;
+extern char MotorTypeIdentifierAdress;
 
 /******************************************************************************/
 
@@ -154,7 +155,7 @@ struct CANRxMsg GetCANRxFifo(void)
 
      // acceptance filter for IMU type messages
 
-     mask = (CAN_MESSAGE_IHM_TYPE<<7 | LocalCanAdress<<4 |0000);
+     mask = (MotorTypeIdentifierAdress << 7 | LocalCanAdress << 4 |0000);
      RXF0SIDH = (char) (mask >> 3);
      RXF0SIDL = (char) (mask << 5);
 

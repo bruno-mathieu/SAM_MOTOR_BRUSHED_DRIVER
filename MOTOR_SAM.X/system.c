@@ -43,34 +43,51 @@ void ConfigureOscillator(void)
 void ConfigureGPIO(void)
 {
 
-    ANCON0 = 0;             // disable analog inputs
-    ANCON1 = 0;             // disable analog inputs
+    ANCON0 = 0b00000000;    // AN 0-->7 disabled
+    ANCON1 = 0b00000010;    // AN 9 enabled for throtle
 
-
-    TRISA = 0xF;           // input for CAN adress selection
+    ADCON0bits.CHS=0x9;     // an9 selected for analog conversion
     
+    ADCON1bits.TRIGSEL=0;
+    ADCON1bits.VCFG=0;      // vref + to AVDD
+    ADCON1bits.VNCFG=0;     //Vref- to GND
+    ADCON1bits.CHSN=0;      //negative channel to GND
 
-    TRISB = 0b11001000;    // output for TX CAN and backlight output, and for keyboard
-    LATBbits.LATB2=1;      // fix output TXCAN
-    LATBbits.LATB5=1;      // fix backlight output
+    ADCON2bits.ADCS=0x6;    //64Tosc TAD
+    ADCON2bits.ACQT=0x7;    //20 TAD acquisition time
+    ADCON2bits.ADFM=1;      //result right justified
 
-    LATBbits.LATB0=1;      // T1 output to 1
-    LATBbits.LATB1=1;      // T2 output to 1
-    LATBbits.LATB4=1;      // T3 output to 1
+    ADCON0bits.ADON=1;      // adc module enabled
 
-    TRISC = 0b11110000;    // outputs for contrast adjustment , and keyboard
-    LATCbits.LATC2=0;      // fix contrast output to 0
+    TRISA = 0x1F;           // input for ADC inputs
 
-    LATCbits.LATC0=1;      // T4 output to 1
-    LATCbits.LATC1=1;      // T5 output to 1
-    LATCbits.LATC3=1;      // T6 output to 1
+    TRISE = 0b11111110;     // output for EN gate
+    LATEbits.LATE0=1;      // EN gate activation
 
-    TRISD = 0b11000000;     /* output for leds and buzzer*/
-    LATD=0;
+    TRISB = 0b11111011;    // output for TX CAN
+    LATBbits.LATB2=0;      // fix output TXCAN
 
-    TRISE = 0b00000000;     // LCD control signals.
-    LATE = 0x00;
 
+    TRISC = 0b00010000;    // outputs all, except SPI_MISO
+    LATCbits.LATC1=1;      // SPI CS to 1
+    LATCbits.LATC2=0;      // PHI1_L
+    LATCbits.LATC3=0;      // SPI_CLK to 0
+    LATCbits.LATC5=0;      // SPI_MOSI to 0
+    LATCbits.LATC6=0;      // PH2_L to 0
+    LATCbits.LATC7=0;      // PH3_L to 0
+
+    TRISD = 0b00000111;    // output for phases and DC cal
+    LATDbits.LATD3=0;      // phi1_H to 0
+    LATDbits.LATD4=0;      // phi2_H to 0
+    LATDbits.LATD5=0;      // phi3_H to 0
+    LATDbits.LATD6=0;      // DC_CAL to 0
+
+    INTCON2bits.nRBPU=1;   // disable pull-up on portb
+
+    WPUB=0x00;             // pullups disabled on button inputs
+
+    PADCFG1bits.RDPU=1;     // enable pull ups on PORTD ( for MOS driver fault outputs.)
+    
 }
 
 void ConfigureInterrupts(void)
@@ -119,54 +136,75 @@ void ConfigureTimers(void)
 
     T0CONbits.TMR0ON = 1;       // enable TIMER0
 
-    // timer 2: used for contrast and backlight configuration.
+    // timer 2: used for low side PWM transistors
 
     T2CONbits.T2OUTPS = 0;        // 1/1 postscaler
     T2CONbits.T2CKPS = 0x2;       // 1/16 prescaler
-    PR2 = 100;                    // period register for use with contrast and backlight
+    PR2 = 50;                    // period register for use with motor PWM (frequency 20kHz)
 
-    // timer 4: used for buzzer output
     
-    T4CONbits.T4OUTPS = 0;        // 1/1 postscaler
-    T4CONbits.T4CKPS = 0x2;
-    PR4=0xFF;                     // period register for use with buzzer
-
   
 }
 
 void ConfigureCCP(void)
 {
-    CCP2CON = 0x0F;         // CCP2 in PWM mode
-    CCP3CON = 0;            // CCP3 disabled
-    CCP4CON = 0;            // CCP4 disabled
-    CCP5CON = 0X0F;         // CCP5 in PWM mode
+    CCP2CON = 0;         // CCP2 disabled at this time
+    CCP3CON = 0;         // CCP3 disabled at this time
+    CCP4CON = 0;         // CCP4 disabled at this time
+    CCP5CON = 0;         // CCP5 not used
     
     CCPTMRS= 0b00000001;    // CCP5 based on Tmr2 
                             // CCP2 based on tmr2
-                            // ECCP1 based on timer 4
-
-    // CCP 2 and 5 configuration
-
-    CCPR2L = 0;             // duty cycle to 100% for contrast
-    CCPR5L = 50;            // duty cycle to 50% for backlight
-
+                            // ECCP1 based on timer 4 (but not used)
+    
     T2CONbits.TMR2ON=1;     // timer 2 activation
 
-    //ECCP1 configuration
+}
 
-    ECCP1CONbits.P1M = 0b10;        // half bridge output
-    ECCP1CONbits.CCP1M = 0b0000;    // all outputs of ECCP are disabled for the moment
+char GetThrotle(void)
+{
+    unsigned int adc_result;
+
+    ADCON0bits.GO=1;
+    while(ADCON0bits.GO==1);
+    adc_result=(ADRESH);
+    adc_result=adc_result<<8;
+    adc_result=adc_result | ADRESL;
+
+    if(adc_result<THROTTLE_OFFSET)
+    {
+        adc_result=THROTTLE_OFFSET;
+    }
+
+    if(adc_result>THROTTLE_MAX_VALUE)
+    {
+        adc_result=THROTTLE_MAX_VALUE;
+    }
+
+    adc_result=(adc_result-THROTTLE_OFFSET)/THROTTLE_DIVIDER;
+
+    if(adc_result<15)
+        adc_result=0;
+    if(adc_result>85)
+        adc_result=100;
+
+    return (char) adc_result;
+
+}
+
+char GetKeyCode(void)
+{
+    char temp;
     
-    CCPR1L=0x7F;
-
-    T4CONbits.TMR4ON=1;
-
-
+    temp = PORTB;
+    temp=temp & 0b00110000;
+    
+    return temp;
 }
 
 char GetCanAdress(void)
 {
-    return (PORTA & 0b00000111);
+    return 0;
 }
 
 char SystemTest(void)

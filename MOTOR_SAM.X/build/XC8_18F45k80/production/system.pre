@@ -22298,11 +22298,9 @@ BYTE type );
 static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
 
 # 22 "system.h"
-struct RTC_counter {
-unsigned char AccelTick_ms;
-unsigned char GyroTick_ms;
-unsigned char MagnetTick_ms;
-
+struct MotionOrder{
+unsigned char PowerValue;
+unsigned char direction;
 };
 
 struct CANTxMsg{
@@ -22382,7 +22380,7 @@ char LedDiplayCycle;
 
 };
 
-# 115
+# 113
 void ConfigureOscillator(void);
 void ConfigureGPIO(void);
 void ConfigureAnalog(void);
@@ -22392,6 +22390,9 @@ void ConfigureTimers(void);
 char SystemTest(void);
 void ConfigureCCP(void);
 char GetCanAdress(void);
+char GetKeyCode(void);
+
+char GetThrotle(void);
 
 # 32 "system.c"
 void ConfigureOscillator(void)
@@ -22408,33 +22409,50 @@ OSCCONbits.SCS=0;
 void ConfigureGPIO(void)
 {
 
-ANCON0 = 0;
-ANCON1 = 0;
+ANCON0 = 0b00000000;
+ANCON1 = 0b00000010;
+
+ADCON0bits.CHS=0x9;
+
+ADCON1bits.TRIGSEL=0;
+ADCON1bits.VCFG=0;
+ADCON1bits.VNCFG=0;
+ADCON1bits.CHSN=0;
+
+ADCON2bits.ADCS=0x6;
+ADCON2bits.ACQT=0x7;
+ADCON2bits.ADFM=1;
+
+ADCON0bits.ADON=1;
+
+TRISA = 0x1F;
+
+TRISE = 0b11111110;
+LATEbits.LATE0=1;
+
+TRISB = 0b11111011;
+LATBbits.LATB2=0;
 
 
-TRISA = 0xF;
-
-
-TRISB = 0b11001000;
-LATBbits.LATB2=1;
-LATBbits.LATB5=1;
-
-LATBbits.LATB0=1;
-LATBbits.LATB1=1;
-LATBbits.LATB4=1;
-
-TRISC = 0b11110000;
-LATCbits.LATC2=0;
-
-LATCbits.LATC0=1;
+TRISC = 0b00010000;
 LATCbits.LATC1=1;
-LATCbits.LATC3=1;
+LATCbits.LATC2=0;
+LATCbits.LATC3=0;
+LATCbits.LATC5=0;
+LATCbits.LATC6=0;
+LATCbits.LATC7=0;
 
-TRISD = 0b11000000;
-LATD=0;
+TRISD = 0b00000111;
+LATDbits.LATD3=0;
+LATDbits.LATD4=0;
+LATDbits.LATD5=0;
+LATDbits.LATD6=0;
 
-TRISE = 0b00000000;
-LATE = 0x00;
+INTCON2bits.nRBPU=1;
+
+WPUB=0x00;
+
+PADCFG1bits.RDPU=1;
 
 }
 
@@ -22488,47 +22506,71 @@ T0CONbits.TMR0ON = 1;
 
 T2CONbits.T2OUTPS = 0;
 T2CONbits.T2CKPS = 0x2;
-PR2 = 100;
+PR2 = 50;
 
-
-
-T4CONbits.T4OUTPS = 0;
-T4CONbits.T4CKPS = 0x2;
-PR4=0xFF;
 
 
 }
 
 void ConfigureCCP(void)
 {
-CCP2CON = 0x0F;
+CCP2CON = 0;
 CCP3CON = 0;
 CCP4CON = 0;
-CCP5CON = 0X0F;
+CCP5CON = 0;
 
 CCPTMRS= 0b00000001;
 
-# 150
-CCPR2L = 0;
-CCPR5L = 50;
+
 
 T2CONbits.TMR2ON=1;
 
+}
 
+char GetThrotle(void)
+{
+unsigned int adc_result;
 
-ECCP1CONbits.P1M = 0b10;
-ECCP1CONbits.CCP1M = 0b0000;
+ADCON0bits.GO=1;
+while(ADCON0bits.GO==1);
+adc_result=(ADRESH);
+adc_result=adc_result<<8;
+adc_result=adc_result | ADRESL;
 
-CCPR1L=0x7F;
+if(adc_result<0x297)
+{
+adc_result=0x297;
+}
 
-T4CONbits.TMR4ON=1;
+if(adc_result>0x8DA)
+{
+adc_result=0x8DA;
+}
 
+adc_result=(adc_result-0x297)/18;
 
+if(adc_result<15)
+adc_result=0;
+if(adc_result>85)
+adc_result=100;
+
+return (char) adc_result;
+
+}
+
+char GetKeyCode(void)
+{
+char temp;
+
+temp = PORTB;
+temp=temp & 0b00110000;
+
+return temp;
 }
 
 char GetCanAdress(void)
 {
-return (PORTA & 0b00000111);
+return 0;
 }
 
 char SystemTest(void)

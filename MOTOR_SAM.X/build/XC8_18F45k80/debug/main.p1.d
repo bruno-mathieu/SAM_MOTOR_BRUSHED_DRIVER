@@ -3,11 +3,9 @@
  main.c  \
 define.h  \
 ecanpoll.h  \
-keybled.h  \
-sound.h  \
 ECANPoll.h  \
-LCD.h  \
 system.h  \
 Define.h  \
+motor.h  \
 Can_HL.h  \
 ecanpoll.def 

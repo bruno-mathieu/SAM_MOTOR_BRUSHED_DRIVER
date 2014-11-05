@@ -22205,11 +22205,9 @@ BYTE type );
 static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
 
 # 22 "system.h"
-struct RTC_counter {
-unsigned char AccelTick_ms;
-unsigned char GyroTick_ms;
-unsigned char MagnetTick_ms;
-
+struct MotionOrder{
+unsigned char PowerValue;
+unsigned char direction;
 };
 
 struct CANTxMsg{
@@ -22289,7 +22287,7 @@ char LedDiplayCycle;
 
 };
 
-# 115
+# 113
 void ConfigureOscillator(void);
 void ConfigureGPIO(void);
 void ConfigureAnalog(void);
@@ -22299,6 +22297,9 @@ void ConfigureTimers(void);
 char SystemTest(void);
 void ConfigureCCP(void);
 char GetCanAdress(void);
+char GetKeyCode(void);
+
+char GetThrotle(void);
 
 # 24 "Can_HL.h"
 void CANTxFifoInit(void);
@@ -22315,6 +22316,7 @@ void ECANFiltersInit(void);
 extern struct CANTxFifo CANTxFifo;
 extern struct CANRxFifo CANRxFifo;
 extern char LocalCanAdress;
+extern char MotorTypeIdentifierAdress;
 
 
 
@@ -22447,7 +22449,7 @@ RXM1SIDL = 0b00000000;
 
 
 
-mask = (0x07<<7 | LocalCanAdress<<4 |0000);
+mask = (MotorTypeIdentifierAdress << 7 | LocalCanAdress << 4 |0000);
 RXF0SIDH = (char) (mask >> 3);
 RXF0SIDL = (char) (mask << 5);
 

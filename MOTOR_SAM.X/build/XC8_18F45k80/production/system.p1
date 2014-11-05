@@ -11,8 +11,74 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _ANCON0 `Vuc ~T0 @X0 0 e@3933 ]
 "29338
 [v _ANCON1 `Vuc ~T0 @X0 0 e@3932 ]
+[s S2437 :1 `uc 1 :1 `uc 1 ]
+[n S2437 . . GO_NOT_DONE ]
+[s S2438 :1 `uc 1 :1 `uc 1 :5 `uc 1 ]
+[n S2438 . ADON GO_nDONE CHS ]
+[s S2439 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2439 . . DONE CHS0 CHS1 CHS2 CHS3 CHS4 ]
+[s S2440 :1 `uc 1 :1 `uc 1 ]
+[n S2440 . . GO ]
+[s S2441 :1 `uc 1 :1 `uc 1 ]
+[n S2441 . . NOT_DONE ]
+[s S2442 :1 `uc 1 :1 `uc 1 ]
+[n S2442 . . nDONE ]
+[s S2443 :1 `uc 1 :1 `uc 1 ]
+[n S2443 . . GODONE ]
+[s S2444 :1 `uc 1 :1 `uc 1 ]
+[n S2444 . . GO_DONE ]
+[u S2436 `S2437 1 `S2438 1 `S2439 1 `S2440 1 `S2441 1 `S2442 1 `S2443 1 `S2444 1 ]
+[n S2436 . . . . . . . . . ]
+"37886
+[v _ADCON0bits `VS2436 ~T0 @X0 0 e@4034 ]
+[s S2431 :3 `uc 1 :1 `uc 1 :2 `uc 1 :2 `uc 1 ]
+[n S2431 . CHSN VNCFG VCFG TRIGSEL ]
+[s S2432 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2432 . CHSN0 CHSN1 CHSN2 . VCFG0 VCFG1 TRIGSEL0 TRIGSEL1 ]
+[s S2433 :3 `uc 1 :1 `uc 1 ]
+[n S2433 . . CHSN3 ]
+[s S2434 :4 `uc 1 :1 `uc 1 ]
+[n S2434 . . VCFG01 ]
+[s S2435 :5 `uc 1 :1 `uc 1 ]
+[n S2435 . . VCFG11 ]
+[u S2430 `S2431 1 `S2432 1 `S2433 1 `S2434 1 `S2435 1 ]
+[n S2430 . . . . . . ]
+"37767
+[v _ADCON1bits `VS2430 ~T0 @X0 0 e@4033 ]
+[s S2428 :3 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2428 . ADCS ACQT . ADFM ]
+[s S2429 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2429 . ADCS0 ADCS1 ADCS2 ACQT0 ACQT1 ACQT2 ]
+[u S2427 `S2428 1 `S2429 1 ]
+[n S2427 . . . ]
+"37683
+[v _ADCON2bits `VS2427 ~T0 @X0 0 e@4032 ]
 "33954
 [v _TRISA `Vuc ~T0 @X0 0 e@3986 ]
+"34193
+[v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
+[s S2210 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2210 . LATE0 LATE1 LATE2 ]
+[s S2211 :1 `uc 1 ]
+[n S2211 . LE0 ]
+[s S2212 :1 `uc 1 :1 `uc 1 ]
+[n S2212 . . LE1 ]
+[s S2213 :2 `uc 1 :1 `uc 1 ]
+[n S2213 . . LE2 ]
+[s S2214 :3 `uc 1 :1 `uc 1 ]
+[n S2214 . . LE3 ]
+[s S2215 :4 `uc 1 :1 `uc 1 ]
+[n S2215 . . LE4 ]
+[s S2216 :5 `uc 1 :1 `uc 1 ]
+[n S2216 . . LE5 ]
+[s S2217 :6 `uc 1 :1 `uc 1 ]
+[n S2217 . . LE6 ]
+[s S2218 :7 `uc 1 :1 `uc 1 ]
+[n S2218 . . LE7 ]
+[u S2209 `S2210 1 `S2211 1 `S2212 1 `S2213 1 `S2214 1 `S2215 1 `S2216 1 `S2217 1 `S2218 1 ]
+[n S2209 . . . . . . . . . . ]
+"33791
+[v _LATEbits `VS2209 ~T0 @X0 0 e@3981 ]
 "34010
 [v _TRISB `Vuc ~T0 @X0 0 e@3987 ]
 [s S2180 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -63,12 +129,48 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _LATCbits `VS2189 ~T0 @X0 0 e@3979 ]
 "34132
 [v _TRISD `Vuc ~T0 @X0 0 e@3989 ]
-"33616
-[v _LATD `Vuc ~T0 @X0 0 e@3980 ]
-"34193
-[v _TRISE `Vuc ~T0 @X0 0 e@3990 ]
-"33748
-[v _LATE `Vuc ~T0 @X0 0 e@3981 ]
+[s S2200 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2200 . LATD0 LATD1 LATD2 LATD3 LATD4 LATD5 LATD6 LATD7 ]
+[s S2201 :1 `uc 1 ]
+[n S2201 . LD0 ]
+[s S2202 :1 `uc 1 :1 `uc 1 ]
+[n S2202 . . LD1 ]
+[s S2203 :2 `uc 1 :1 `uc 1 ]
+[n S2203 . . LD2 ]
+[s S2204 :3 `uc 1 :1 `uc 1 ]
+[n S2204 . . LD3 ]
+[s S2205 :4 `uc 1 :1 `uc 1 ]
+[n S2205 . . LD4 ]
+[s S2206 :5 `uc 1 :1 `uc 1 ]
+[n S2206 . . LD5 ]
+[s S2207 :6 `uc 1 :1 `uc 1 ]
+[n S2207 . . LD6 ]
+[s S2208 :7 `uc 1 :1 `uc 1 ]
+[n S2208 . . LD7 ]
+[u S2199 `S2200 1 `S2201 1 `S2202 1 `S2203 1 `S2204 1 `S2205 1 `S2206 1 `S2207 1 `S2208 1 ]
+[n S2199 . . . . . . . . . . ]
+"33664
+[v _LATDbits `VS2199 ~T0 @X0 0 e@3980 ]
+[s S2587 :7 `uc 1 :1 `uc 1 ]
+[n S2587 . . NOT_RBPU ]
+[s S2588 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S2588 . RBIP INT3IP TMR0IP INTEDG3 INTEDG2 INTEDG1 INTEDG0 nRBPU ]
+[s S2589 :1 `uc 1 :1 `uc 1 :1 `uc 1 :4 `uc 1 :1 `uc 1 ]
+[n S2589 . . INT3P T0IP . RBPU ]
+[u S2586 `S2587 1 `S2588 1 `S2589 1 ]
+[n S2586 . . . . ]
+"40006
+[v _INTCON2bits `VS2586 ~T0 @X0 0 e@4081 ]
+"29277
+[v _WPUB `Vuc ~T0 @X0 0 e@3931 ]
+[s S1897 :1 `uc 1 :5 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S1897 . CTMUDS . REPU RDPU ]
+[s S1898 :1 `uc 1 ]
+[n S1898 . PMPTTL ]
+[u S1896 `S1897 1 `S1898 1 ]
+[n S1896 . . . ]
+"29036
+[v _PADCFG1bits `VS1896 ~T0 @X0 0 e@3926 ]
 [s S2507 :1 `uc 1 ]
 [n S2507 . NOT_BOR ]
 [s S2508 :1 `uc 1 :1 `uc 1 ]
@@ -161,16 +263,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _T2CONbits `VS2477 ~T0 @X0 0 e@4042 ]
 "38572
 [v _PR2 `Vuc ~T0 @X0 0 e@4043 ]
-[s S2167 :2 `uc 1 :1 `uc 1 :4 `uc 1 ]
-[n S2167 . T4CKPS TMR4ON T4OUTPS ]
-[s S2168 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2168 . T4CKPS0 T4CKPS1 . T4OUTPS0 T4OUTPS1 T4OUTPS2 T4OUTPS3 ]
-[u S2166 `S2167 1 `S2168 1 ]
-[n S2166 . . . ]
-"33176
-[v _T4CONbits `VS2166 ~T0 @X0 0 e@3976 ]
-"35461
-[v _PR4 `Vuc ~T0 @X0 0 e@4009 ]
 "28613
 [v _CCP2CON `Vuc ~T0 @X0 0 e@3920 ]
 "28491
@@ -181,24 +273,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _CCP5CON `Vuc ~T0 @X0 0 e@3911 ]
 "34224
 [v _CCPTMRS `Vuc ~T0 @X0 0 e@3993 ]
-"28774
-[v _CCPR2L `Vuc ~T0 @X0 0 e@3921 ]
-"28331
-[v _CCPR5L `Vuc ~T0 @X0 0 e@3912 ]
-[s S2411 :4 `uc 1 :2 `uc 1 :2 `uc 1 ]
-[n S2411 . CCP1M DC1B P1M ]
-[s S2412 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2412 . CCP1M0 CCP1M1 CCP1M2 CCP1M3 DC1B0 DC1B1 P1M0 P1M1 ]
-[s S2413 :4 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S2413 . . CCP1Y CCP1X ]
-[u S2410 `S2411 1 `S2412 1 `S2413 1 ]
-[n S2410 . . . . ]
-"37331
-[v _ECCP1CONbits `VS2410 ~T0 @X0 0 e@4027 ]
-"37406
-[v _CCPR1L `Vuc ~T0 @X0 0 e@4028 ]
-"32593
-[v _PORTA `Vuc ~T0 @X0 0 e@3968 ]
+"37990
+[v _ADRESH `Vuc ~T0 @X0 0 e@4036 ]
+"37971
+[v _ADRESL `Vuc ~T0 @X0 0 e@4035 ]
+"32684
+[v _PORTB `Vuc ~T0 @X0 0 e@3969 ]
 [; ;htc.h: 22: extern void __builtin_software_breakpoint(void);
 [; ;pic18f45k80.h: 44: extern volatile unsigned char RXERRCNT @ 0xE41;
 "46 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
@@ -17856,73 +17936,74 @@ Version 3.2 HI-TECH Software Intermediate Code
 "1705 ECANPoll.h
 [v _RXBODBEN `VNb ~T0 @X0 1 s@31490 ]
 [; ;ECANPoll.h: 1705: static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
-[; ;system.h: 22: struct RTC_counter {
-[; ;system.h: 23: unsigned char AccelTick_ms;
-[; ;system.h: 24: unsigned char GyroTick_ms;
-[; ;system.h: 25: unsigned char MagnetTick_ms;
-[; ;system.h: 27: };
-[; ;system.h: 29: struct CANTxMsg{
-[; ;system.h: 31: unsigned long id;
-[; ;system.h: 32: BYTE data_TX[8];
-[; ;system.h: 33: BYTE dataLen;
-[; ;system.h: 34: ECAN_TX_MSG_FLAGS flags;
-[; ;system.h: 36: };
-[; ;system.h: 38: struct CANRxMsg{
-[; ;system.h: 40: unsigned long id;
-[; ;system.h: 41: BYTE data_RX[8];
-[; ;system.h: 42: BYTE dataLen;
-[; ;system.h: 43: ECAN_RX_MSG_FLAGS flags;
-[; ;system.h: 45: };
-[; ;system.h: 47: struct CANTxFifo{
-[; ;system.h: 49: struct CANTxMsg CANMsg[10];
-[; ;system.h: 51: unsigned char LowIndex;
-[; ;system.h: 52: unsigned char HighIndex;
-[; ;system.h: 53: unsigned char Fifofull;
-[; ;system.h: 54: unsigned char FifoEmpty;
-[; ;system.h: 56: };
-[; ;system.h: 58: struct CANRxFifo{
-[; ;system.h: 60: struct CANRxMsg CANMsg[10];
-[; ;system.h: 62: unsigned char LowIndex;
-[; ;system.h: 63: unsigned char HighIndex;
-[; ;system.h: 64: unsigned char Fifofull;
-[; ;system.h: 65: unsigned char FifoEmpty;
-[; ;system.h: 67: };
-[; ;system.h: 70: struct SoundMsg{
-[; ;system.h: 72: char SoundType;
-[; ;system.h: 73: char Volume;
-[; ;system.h: 74: char OnDuration;
-[; ;system.h: 75: char OffDuration;
-[; ;system.h: 76: char CurrentPhase;
-[; ;system.h: 77: char CycleNumber;
-[; ;system.h: 78: char CycleIndex;
-[; ;system.h: 79: unsigned int Frequency;
-[; ;system.h: 80: char OnTimeIndex;
-[; ;system.h: 81: char OffTimeIndex;
-[; ;system.h: 83: };
-[; ;system.h: 85: struct KeybMsg{
-[; ;system.h: 87: char KeybCode;
-[; ;system.h: 88: char OldKeybCode;
-[; ;system.h: 89: char KeyPressedEvent;
-[; ;system.h: 90: char LongPressDetected;
-[; ;system.h: 91: char FirePressIndex;
-[; ;system.h: 92: char LongPressIndex;
-[; ;system.h: 93: char KeybTimerTicked;
-[; ;system.h: 94: char KeybLongPressDelay;
-[; ;system.h: 95: char KeybFireDelay;
-[; ;system.h: 97: };
-[; ;system.h: 99: struct LedDisp{
-[; ;system.h: 100: char LightedLeds;
-[; ;system.h: 101: char LedColor;
-[; ;system.h: 102: char LedDiplayCycle;
-[; ;system.h: 104: };
-[; ;system.h: 115: void ConfigureOscillator(void);
-[; ;system.h: 116: void ConfigureGPIO(void);
-[; ;system.h: 117: void ConfigureAnalog(void);
-[; ;system.h: 118: void ConfigureInterrupts(void);
-[; ;system.h: 120: void ConfigureTimers(void);
-[; ;system.h: 121: char SystemTest(void);
-[; ;system.h: 122: void ConfigureCCP(void);
-[; ;system.h: 123: char GetCanAdress(void);
+[; ;system.h: 22: struct MotionOrder{
+[; ;system.h: 23: unsigned char PowerValue;
+[; ;system.h: 24: unsigned char direction;
+[; ;system.h: 25: };
+[; ;system.h: 27: struct CANTxMsg{
+[; ;system.h: 29: unsigned long id;
+[; ;system.h: 30: BYTE data_TX[8];
+[; ;system.h: 31: BYTE dataLen;
+[; ;system.h: 32: ECAN_TX_MSG_FLAGS flags;
+[; ;system.h: 34: };
+[; ;system.h: 36: struct CANRxMsg{
+[; ;system.h: 38: unsigned long id;
+[; ;system.h: 39: BYTE data_RX[8];
+[; ;system.h: 40: BYTE dataLen;
+[; ;system.h: 41: ECAN_RX_MSG_FLAGS flags;
+[; ;system.h: 43: };
+[; ;system.h: 45: struct CANTxFifo{
+[; ;system.h: 47: struct CANTxMsg CANMsg[10];
+[; ;system.h: 49: unsigned char LowIndex;
+[; ;system.h: 50: unsigned char HighIndex;
+[; ;system.h: 51: unsigned char Fifofull;
+[; ;system.h: 52: unsigned char FifoEmpty;
+[; ;system.h: 54: };
+[; ;system.h: 56: struct CANRxFifo{
+[; ;system.h: 58: struct CANRxMsg CANMsg[10];
+[; ;system.h: 60: unsigned char LowIndex;
+[; ;system.h: 61: unsigned char HighIndex;
+[; ;system.h: 62: unsigned char Fifofull;
+[; ;system.h: 63: unsigned char FifoEmpty;
+[; ;system.h: 65: };
+[; ;system.h: 68: struct SoundMsg{
+[; ;system.h: 70: char SoundType;
+[; ;system.h: 71: char Volume;
+[; ;system.h: 72: char OnDuration;
+[; ;system.h: 73: char OffDuration;
+[; ;system.h: 74: char CurrentPhase;
+[; ;system.h: 75: char CycleNumber;
+[; ;system.h: 76: char CycleIndex;
+[; ;system.h: 77: unsigned int Frequency;
+[; ;system.h: 78: char OnTimeIndex;
+[; ;system.h: 79: char OffTimeIndex;
+[; ;system.h: 81: };
+[; ;system.h: 83: struct KeybMsg{
+[; ;system.h: 85: char KeybCode;
+[; ;system.h: 86: char OldKeybCode;
+[; ;system.h: 87: char KeyPressedEvent;
+[; ;system.h: 88: char LongPressDetected;
+[; ;system.h: 89: char FirePressIndex;
+[; ;system.h: 90: char LongPressIndex;
+[; ;system.h: 91: char KeybTimerTicked;
+[; ;system.h: 92: char KeybLongPressDelay;
+[; ;system.h: 93: char KeybFireDelay;
+[; ;system.h: 95: };
+[; ;system.h: 97: struct LedDisp{
+[; ;system.h: 98: char LightedLeds;
+[; ;system.h: 99: char LedColor;
+[; ;system.h: 100: char LedDiplayCycle;
+[; ;system.h: 102: };
+[; ;system.h: 113: void ConfigureOscillator(void);
+[; ;system.h: 114: void ConfigureGPIO(void);
+[; ;system.h: 115: void ConfigureAnalog(void);
+[; ;system.h: 116: void ConfigureInterrupts(void);
+[; ;system.h: 118: void ConfigureTimers(void);
+[; ;system.h: 119: char SystemTest(void);
+[; ;system.h: 120: void ConfigureCCP(void);
+[; ;system.h: 121: char GetCanAdress(void);
+[; ;system.h: 122: char GetKeyCode(void);
+[; ;system.h: 124: char GetThrotle(void);
 "32 system.c
 [v _ConfigureOscillator `(v ~T0 @X0 1 ef ]
 "33
@@ -17952,267 +18033,385 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;system.c: 44: {
 [e :U _ConfigureGPIO ]
 [f ]
-[; ;system.c: 46: ANCON0 = 0;
+[; ;system.c: 46: ANCON0 = 0b00000000;
 "46
 [e = _ANCON0 -> -> 0 `i `uc ]
-[; ;system.c: 47: ANCON1 = 0;
+[; ;system.c: 47: ANCON1 = 0b00000010;
 "47
-[e = _ANCON1 -> -> 0 `i `uc ]
-[; ;system.c: 50: TRISA = 0xF;
-"50
-[e = _TRISA -> -> 15 `i `uc ]
-[; ;system.c: 53: TRISB = 0b11001000;
+[e = _ANCON1 -> -> 2 `i `uc ]
+[; ;system.c: 49: ADCON0bits.CHS=0x9;
+"49
+[e = . . _ADCON0bits 1 2 -> -> 9 `i `uc ]
+[; ;system.c: 51: ADCON1bits.TRIGSEL=0;
+"51
+[e = . . _ADCON1bits 0 3 -> -> 0 `i `uc ]
+[; ;system.c: 52: ADCON1bits.VCFG=0;
+"52
+[e = . . _ADCON1bits 0 2 -> -> 0 `i `uc ]
+[; ;system.c: 53: ADCON1bits.VNCFG=0;
 "53
-[e = _TRISB -> -> 200 `i `uc ]
-[; ;system.c: 54: LATBbits.LATB2=1;
+[e = . . _ADCON1bits 0 1 -> -> 0 `i `uc ]
+[; ;system.c: 54: ADCON1bits.CHSN=0;
 "54
-[e = . . _LATBbits 0 2 -> -> 1 `i `uc ]
-[; ;system.c: 55: LATBbits.LATB5=1;
-"55
-[e = . . _LATBbits 0 5 -> -> 1 `i `uc ]
-[; ;system.c: 57: LATBbits.LATB0=1;
+[e = . . _ADCON1bits 0 0 -> -> 0 `i `uc ]
+[; ;system.c: 56: ADCON2bits.ADCS=0x6;
+"56
+[e = . . _ADCON2bits 0 0 -> -> 6 `i `uc ]
+[; ;system.c: 57: ADCON2bits.ACQT=0x7;
 "57
-[e = . . _LATBbits 0 0 -> -> 1 `i `uc ]
-[; ;system.c: 58: LATBbits.LATB1=1;
+[e = . . _ADCON2bits 0 1 -> -> 7 `i `uc ]
+[; ;system.c: 58: ADCON2bits.ADFM=1;
 "58
-[e = . . _LATBbits 0 1 -> -> 1 `i `uc ]
-[; ;system.c: 59: LATBbits.LATB4=1;
-"59
-[e = . . _LATBbits 0 4 -> -> 1 `i `uc ]
-[; ;system.c: 61: TRISC = 0b11110000;
-"61
-[e = _TRISC -> -> 240 `i `uc ]
-[; ;system.c: 62: LATCbits.LATC2=0;
+[e = . . _ADCON2bits 0 3 -> -> 1 `i `uc ]
+[; ;system.c: 60: ADCON0bits.ADON=1;
+"60
+[e = . . _ADCON0bits 1 0 -> -> 1 `i `uc ]
+[; ;system.c: 62: TRISA = 0x1F;
 "62
-[e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
-[; ;system.c: 64: LATCbits.LATC0=1;
+[e = _TRISA -> -> 31 `i `uc ]
+[; ;system.c: 64: TRISE = 0b11111110;
 "64
-[e = . . _LATCbits 0 0 -> -> 1 `i `uc ]
-[; ;system.c: 65: LATCbits.LATC1=1;
+[e = _TRISE -> -> 254 `i `uc ]
+[; ;system.c: 65: LATEbits.LATE0=1;
 "65
-[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
-[; ;system.c: 66: LATCbits.LATC3=1;
-"66
-[e = . . _LATCbits 0 3 -> -> 1 `i `uc ]
-[; ;system.c: 68: TRISD = 0b11000000;
+[e = . . _LATEbits 0 0 -> -> 1 `i `uc ]
+[; ;system.c: 67: TRISB = 0b11111011;
+"67
+[e = _TRISB -> -> 251 `i `uc ]
+[; ;system.c: 68: LATBbits.LATB2=0;
 "68
-[e = _TRISD -> -> 192 `i `uc ]
-[; ;system.c: 69: LATD=0;
-"69
-[e = _LATD -> -> 0 `i `uc ]
-[; ;system.c: 71: TRISE = 0b00000000;
+[e = . . _LATBbits 0 2 -> -> 0 `i `uc ]
+[; ;system.c: 71: TRISC = 0b00010000;
 "71
-[e = _TRISE -> -> 0 `i `uc ]
-[; ;system.c: 72: LATE = 0x00;
+[e = _TRISC -> -> 16 `i `uc ]
+[; ;system.c: 72: LATCbits.LATC1=1;
 "72
-[e = _LATE -> -> 0 `i `uc ]
-[; ;system.c: 74: }
+[e = . . _LATCbits 0 1 -> -> 1 `i `uc ]
+[; ;system.c: 73: LATCbits.LATC2=0;
+"73
+[e = . . _LATCbits 0 2 -> -> 0 `i `uc ]
+[; ;system.c: 74: LATCbits.LATC3=0;
 "74
+[e = . . _LATCbits 0 3 -> -> 0 `i `uc ]
+[; ;system.c: 75: LATCbits.LATC5=0;
+"75
+[e = . . _LATCbits 0 5 -> -> 0 `i `uc ]
+[; ;system.c: 76: LATCbits.LATC6=0;
+"76
+[e = . . _LATCbits 0 6 -> -> 0 `i `uc ]
+[; ;system.c: 77: LATCbits.LATC7=0;
+"77
+[e = . . _LATCbits 0 7 -> -> 0 `i `uc ]
+[; ;system.c: 79: TRISD = 0b00000111;
+"79
+[e = _TRISD -> -> 7 `i `uc ]
+[; ;system.c: 80: LATDbits.LATD3=0;
+"80
+[e = . . _LATDbits 0 3 -> -> 0 `i `uc ]
+[; ;system.c: 81: LATDbits.LATD4=0;
+"81
+[e = . . _LATDbits 0 4 -> -> 0 `i `uc ]
+[; ;system.c: 82: LATDbits.LATD5=0;
+"82
+[e = . . _LATDbits 0 5 -> -> 0 `i `uc ]
+[; ;system.c: 83: LATDbits.LATD6=0;
+"83
+[e = . . _LATDbits 0 6 -> -> 0 `i `uc ]
+[; ;system.c: 85: INTCON2bits.nRBPU=1;
+"85
+[e = . . _INTCON2bits 1 7 -> -> 1 `i `uc ]
+[; ;system.c: 87: WPUB=0x00;
+"87
+[e = _WPUB -> -> 0 `i `uc ]
+[; ;system.c: 89: PADCFG1bits.RDPU=1;
+"89
+[e = . . _PADCFG1bits 0 3 -> -> 1 `i `uc ]
+[; ;system.c: 91: }
+"91
 [e :UE 2678 ]
 }
-"76
+"93
 [v _ConfigureInterrupts `(v ~T0 @X0 1 ef ]
-"77
+"94
 {
-[; ;system.c: 76: void ConfigureInterrupts(void)
-[; ;system.c: 77: {
+[; ;system.c: 93: void ConfigureInterrupts(void)
+[; ;system.c: 94: {
 [e :U _ConfigureInterrupts ]
 [f ]
-[; ;system.c: 80: RCONbits.IPEN = 1;
-"80
+[; ;system.c: 97: RCONbits.IPEN = 1;
+"97
 [e = . . _RCONbits 6 7 -> -> 1 `i `uc ]
-[; ;system.c: 82: INTCON = 0b00100000;
-"82
-[e = _INTCON -> -> 32 `i `uc ]
-[; ;system.c: 83: INTCON2 = 0b11111000;
-"83
-[e = _INTCON2 -> -> 248 `i `uc ]
-[; ;system.c: 84: INTCON3 = 0b00000000;
-"84
-[e = _INTCON3 -> -> 0 `i `uc ]
-[; ;system.c: 86: PIR1 = 0;
-"86
-[e = _PIR1 -> -> 0 `i `uc ]
-[; ;system.c: 87: PIR2 = 0;
-"87
-[e = _PIR2 -> -> 0 `i `uc ]
-[; ;system.c: 88: PIR3 = 0;
-"88
-[e = _PIR3 -> -> 0 `i `uc ]
-[; ;system.c: 89: PIR4 = 0;
-"89
-[e = _PIR4 -> -> 0 `i `uc ]
-[; ;system.c: 90: PIR5 = 0;
-"90
-[e = _PIR5 -> -> 0 `i `uc ]
-[; ;system.c: 92: PIE1 = 0;
-"92
-[e = _PIE1 -> -> 0 `i `uc ]
-[; ;system.c: 93: PIE2 = 0;
-"93
-[e = _PIE2 -> -> 0 `i `uc ]
-[; ;system.c: 94: PIE3 = 0;
-"94
-[e = _PIE3 -> -> 0 `i `uc ]
-[; ;system.c: 95: PIE4 = 0;
-"95
-[e = _PIE4 -> -> 0 `i `uc ]
-[; ;system.c: 96: PIE5 = 0b00000011;
-"96
-[e = _PIE5 -> -> 3 `i `uc ]
-[; ;system.c: 98: IPR1= 0 ;
-"98
-[e = _IPR1 -> -> 0 `i `uc ]
-[; ;system.c: 99: IPR2= 0 ;
+[; ;system.c: 99: INTCON = 0b00100000;
 "99
-[e = _IPR2 -> -> 0 `i `uc ]
-[; ;system.c: 100: IPR3= 0 ;
+[e = _INTCON -> -> 32 `i `uc ]
+[; ;system.c: 100: INTCON2 = 0b11111000;
 "100
-[e = _IPR3 -> -> 0 `i `uc ]
-[; ;system.c: 101: IPR4= 0 ;
+[e = _INTCON2 -> -> 248 `i `uc ]
+[; ;system.c: 101: INTCON3 = 0b00000000;
 "101
-[e = _IPR4 -> -> 0 `i `uc ]
-[; ;system.c: 102: IPR5= 0b00000011 ;
-"102
-[e = _IPR5 -> -> 3 `i `uc ]
-[; ;system.c: 104: INTCONbits.GIE=1;
+[e = _INTCON3 -> -> 0 `i `uc ]
+[; ;system.c: 103: PIR1 = 0;
+"103
+[e = _PIR1 -> -> 0 `i `uc ]
+[; ;system.c: 104: PIR2 = 0;
 "104
-[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
-[; ;system.c: 105: INTCONbits.PEIE=1;
+[e = _PIR2 -> -> 0 `i `uc ]
+[; ;system.c: 105: PIR3 = 0;
 "105
-[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
-[; ;system.c: 106: }
+[e = _PIR3 -> -> 0 `i `uc ]
+[; ;system.c: 106: PIR4 = 0;
 "106
+[e = _PIR4 -> -> 0 `i `uc ]
+[; ;system.c: 107: PIR5 = 0;
+"107
+[e = _PIR5 -> -> 0 `i `uc ]
+[; ;system.c: 109: PIE1 = 0;
+"109
+[e = _PIE1 -> -> 0 `i `uc ]
+[; ;system.c: 110: PIE2 = 0;
+"110
+[e = _PIE2 -> -> 0 `i `uc ]
+[; ;system.c: 111: PIE3 = 0;
+"111
+[e = _PIE3 -> -> 0 `i `uc ]
+[; ;system.c: 112: PIE4 = 0;
+"112
+[e = _PIE4 -> -> 0 `i `uc ]
+[; ;system.c: 113: PIE5 = 0b00000011;
+"113
+[e = _PIE5 -> -> 3 `i `uc ]
+[; ;system.c: 115: IPR1= 0 ;
+"115
+[e = _IPR1 -> -> 0 `i `uc ]
+[; ;system.c: 116: IPR2= 0 ;
+"116
+[e = _IPR2 -> -> 0 `i `uc ]
+[; ;system.c: 117: IPR3= 0 ;
+"117
+[e = _IPR3 -> -> 0 `i `uc ]
+[; ;system.c: 118: IPR4= 0 ;
+"118
+[e = _IPR4 -> -> 0 `i `uc ]
+[; ;system.c: 119: IPR5= 0b00000011 ;
+"119
+[e = _IPR5 -> -> 3 `i `uc ]
+[; ;system.c: 121: INTCONbits.GIE=1;
+"121
+[e = . . _INTCONbits 1 7 -> -> 1 `i `uc ]
+[; ;system.c: 122: INTCONbits.PEIE=1;
+"122
+[e = . . _INTCONbits 1 6 -> -> 1 `i `uc ]
+[; ;system.c: 123: }
+"123
 [e :UE 2679 ]
 }
-"108
+"125
 [v _ConfigureTimers `(v ~T0 @X0 1 ef ]
-"109
+"126
 {
-[; ;system.c: 108: void ConfigureTimers(void)
-[; ;system.c: 109: {
+[; ;system.c: 125: void ConfigureTimers(void)
+[; ;system.c: 126: {
 [e :U _ConfigureTimers ]
 [f ]
-[; ;system.c: 112: T0CONbits.T08BIT = 0;
-"112
+[; ;system.c: 129: T0CONbits.T08BIT = 0;
+"129
 [e = . . _T0CONbits 0 4 -> -> 0 `i `uc ]
-[; ;system.c: 113: T0CONbits.T0CS = 0;
-"113
-[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
-[; ;system.c: 114: T0CONbits.PSA = 0;
-"114
-[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
-[; ;system.c: 115: T0CONbits.T0PS=6;
-"115
-[e = . . _T0CONbits 0 0 -> -> 6 `i `uc ]
-[; ;system.c: 117: TMR0H = 0xFB;
-"117
-[e = _TMR0H -> -> 251 `i `uc ]
-[; ;system.c: 118: TMR0L = 0x1E;
-"118
-[e = _TMR0L -> -> 30 `i `uc ]
-[; ;system.c: 120: T0CONbits.TMR0ON = 1;
-"120
-[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
-[; ;system.c: 124: T2CONbits.T2OUTPS = 0;
-"124
-[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
-[; ;system.c: 125: T2CONbits.T2CKPS = 0x2;
-"125
-[e = . . _T2CONbits 0 0 -> -> 2 `i `uc ]
-[; ;system.c: 126: PR2 = 100;
-"126
-[e = _PR2 -> -> 100 `i `uc ]
-[; ;system.c: 130: T4CONbits.T4OUTPS = 0;
+[; ;system.c: 130: T0CONbits.T0CS = 0;
 "130
-[e = . . _T4CONbits 0 2 -> -> 0 `i `uc ]
-[; ;system.c: 131: T4CONbits.T4CKPS = 0x2;
+[e = . . _T0CONbits 0 3 -> -> 0 `i `uc ]
+[; ;system.c: 131: T0CONbits.PSA = 0;
 "131
-[e = . . _T4CONbits 0 0 -> -> 2 `i `uc ]
-[; ;system.c: 132: PR4=0xFF;
+[e = . . _T0CONbits 0 1 -> -> 0 `i `uc ]
+[; ;system.c: 132: T0CONbits.T0PS=6;
 "132
-[e = _PR4 -> -> 255 `i `uc ]
-[; ;system.c: 135: }
+[e = . . _T0CONbits 0 0 -> -> 6 `i `uc ]
+[; ;system.c: 134: TMR0H = 0xFB;
+"134
+[e = _TMR0H -> -> 251 `i `uc ]
+[; ;system.c: 135: TMR0L = 0x1E;
 "135
+[e = _TMR0L -> -> 30 `i `uc ]
+[; ;system.c: 137: T0CONbits.TMR0ON = 1;
+"137
+[e = . . _T0CONbits 0 5 -> -> 1 `i `uc ]
+[; ;system.c: 141: T2CONbits.T2OUTPS = 0;
+"141
+[e = . . _T2CONbits 0 2 -> -> 0 `i `uc ]
+[; ;system.c: 142: T2CONbits.T2CKPS = 0x2;
+"142
+[e = . . _T2CONbits 0 0 -> -> 2 `i `uc ]
+[; ;system.c: 143: PR2 = 50;
+"143
+[e = _PR2 -> -> 50 `i `uc ]
+[; ;system.c: 147: }
+"147
 [e :UE 2680 ]
 }
-"137
+"149
 [v _ConfigureCCP `(v ~T0 @X0 1 ef ]
-"138
+"150
 {
-[; ;system.c: 137: void ConfigureCCP(void)
-[; ;system.c: 138: {
+[; ;system.c: 149: void ConfigureCCP(void)
+[; ;system.c: 150: {
 [e :U _ConfigureCCP ]
 [f ]
-[; ;system.c: 139: CCP2CON = 0x0F;
-"139
-[e = _CCP2CON -> -> 15 `i `uc ]
-[; ;system.c: 140: CCP3CON = 0;
-"140
-[e = _CCP3CON -> -> 0 `i `uc ]
-[; ;system.c: 141: CCP4CON = 0;
-"141
-[e = _CCP4CON -> -> 0 `i `uc ]
-[; ;system.c: 142: CCP5CON = 0X0F;
-"142
-[e = _CCP5CON -> -> 15 `i `uc ]
-[; ;system.c: 144: CCPTMRS= 0b00000001;
-"144
-[e = _CCPTMRS -> -> 1 `i `uc ]
-[; ;system.c: 150: CCPR2L = 0;
-"150
-[e = _CCPR2L -> -> 0 `i `uc ]
-[; ;system.c: 151: CCPR5L = 50;
+[; ;system.c: 151: CCP2CON = 0;
 "151
-[e = _CCPR5L -> -> 50 `i `uc ]
-[; ;system.c: 153: T2CONbits.TMR2ON=1;
+[e = _CCP2CON -> -> 0 `i `uc ]
+[; ;system.c: 152: CCP3CON = 0;
+"152
+[e = _CCP3CON -> -> 0 `i `uc ]
+[; ;system.c: 153: CCP4CON = 0;
 "153
-[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
-[; ;system.c: 157: ECCP1CONbits.P1M = 0b10;
-"157
-[e = . . _ECCP1CONbits 0 2 -> -> 2 `i `uc ]
-[; ;system.c: 158: ECCP1CONbits.CCP1M = 0b0000;
-"158
-[e = . . _ECCP1CONbits 0 0 -> -> 0 `i `uc ]
-[; ;system.c: 160: CCPR1L=0x7F;
+[e = _CCP4CON -> -> 0 `i `uc ]
+[; ;system.c: 154: CCP5CON = 0;
+"154
+[e = _CCP5CON -> -> 0 `i `uc ]
+[; ;system.c: 156: CCPTMRS= 0b00000001;
+"156
+[e = _CCPTMRS -> -> 1 `i `uc ]
+[; ;system.c: 160: T2CONbits.TMR2ON=1;
 "160
-[e = _CCPR1L -> -> 127 `i `uc ]
-[; ;system.c: 162: T4CONbits.TMR4ON=1;
+[e = . . _T2CONbits 0 1 -> -> 1 `i `uc ]
+[; ;system.c: 162: }
 "162
-[e = . . _T4CONbits 0 1 -> -> 1 `i `uc ]
-[; ;system.c: 165: }
-"165
 [e :UE 2681 ]
 }
-"167
-[v _GetCanAdress `(uc ~T0 @X0 1 ef ]
-"168
+"164
+[v _GetThrotle `(uc ~T0 @X0 1 ef ]
+"165
 {
-[; ;system.c: 167: char GetCanAdress(void)
-[; ;system.c: 168: {
-[e :U _GetCanAdress ]
+[; ;system.c: 164: char GetThrotle(void)
+[; ;system.c: 165: {
+[e :U _GetThrotle ]
 [f ]
-[; ;system.c: 169: return (PORTA & 0b00000111);
+"166
+[v _adc_result `ui ~T0 @X0 1 a ]
+[; ;system.c: 166: unsigned int adc_result;
+[; ;system.c: 168: ADCON0bits.GO=1;
+"168
+[e = . . _ADCON0bits 3 1 -> -> 1 `i `uc ]
+[; ;system.c: 169: while(ADCON0bits.GO==1);
 "169
-[e ) -> & -> _PORTA `i -> 7 `i `uc ]
-[e $UE 2682  ]
-[; ;system.c: 170: }
+[e $U 2683  ]
+[e :U 2684 ]
+[e :U 2683 ]
+[e $ == -> . . _ADCON0bits 3 1 `i -> 1 `i 2684  ]
+[e :U 2685 ]
+[; ;system.c: 170: adc_result=(ADRESH);
 "170
+[e = _adc_result -> _ADRESH `ui ]
+[; ;system.c: 171: adc_result=adc_result<<8;
+"171
+[e = _adc_result << _adc_result -> 8 `i ]
+[; ;system.c: 172: adc_result=adc_result | ADRESL;
+"172
+[e = _adc_result | _adc_result -> _ADRESL `ui ]
+[; ;system.c: 174: if(adc_result<0x297)
+"174
+[e $ ! < _adc_result -> -> 663 `i `ui 2686  ]
+[; ;system.c: 175: {
+"175
+{
+[; ;system.c: 176: adc_result=0x297;
+"176
+[e = _adc_result -> -> 663 `i `ui ]
+"177
+}
+[e :U 2686 ]
+[; ;system.c: 177: }
+[; ;system.c: 179: if(adc_result>0x8DA)
+"179
+[e $ ! > _adc_result -> -> 2266 `i `ui 2687  ]
+[; ;system.c: 180: {
+"180
+{
+[; ;system.c: 181: adc_result=0x8DA;
+"181
+[e = _adc_result -> -> 2266 `i `ui ]
+"182
+}
+[e :U 2687 ]
+[; ;system.c: 182: }
+[; ;system.c: 184: adc_result=(adc_result-0x297)/18;
+"184
+[e = _adc_result / - _adc_result -> -> 663 `i `ui -> -> 18 `i `ui ]
+[; ;system.c: 186: if(adc_result<15)
+"186
+[e $ ! < _adc_result -> -> 15 `i `ui 2688  ]
+[; ;system.c: 187: adc_result=0;
+"187
+[e = _adc_result -> -> 0 `i `ui ]
+[e :U 2688 ]
+[; ;system.c: 188: if(adc_result>85)
+"188
+[e $ ! > _adc_result -> -> 85 `i `ui 2689  ]
+[; ;system.c: 189: adc_result=100;
+"189
+[e = _adc_result -> -> 100 `i `ui ]
+[e :U 2689 ]
+[; ;system.c: 191: return (char) adc_result;
+"191
+[e ) -> _adc_result `uc ]
+[e $UE 2682  ]
+[; ;system.c: 193: }
+"193
 [e :UE 2682 ]
 }
-"172
-[v _SystemTest `(uc ~T0 @X0 1 ef ]
-"173
+"195
+[v _GetKeyCode `(uc ~T0 @X0 1 ef ]
+"196
 {
-[; ;system.c: 172: char SystemTest(void)
-[; ;system.c: 173: {
+[; ;system.c: 195: char GetKeyCode(void)
+[; ;system.c: 196: {
+[e :U _GetKeyCode ]
+[f ]
+"197
+[v _temp `uc ~T0 @X0 1 a ]
+[; ;system.c: 197: char temp;
+[; ;system.c: 199: temp = PORTB;
+"199
+[e = _temp _PORTB ]
+[; ;system.c: 200: temp=temp & 0b00110000;
+"200
+[e = _temp -> & -> _temp `i -> 48 `i `uc ]
+[; ;system.c: 202: return temp;
+"202
+[e ) _temp ]
+[e $UE 2690  ]
+[; ;system.c: 203: }
+"203
+[e :UE 2690 ]
+}
+"205
+[v _GetCanAdress `(uc ~T0 @X0 1 ef ]
+"206
+{
+[; ;system.c: 205: char GetCanAdress(void)
+[; ;system.c: 206: {
+[e :U _GetCanAdress ]
+[f ]
+[; ;system.c: 207: return 0;
+"207
+[e ) -> -> 0 `i `uc ]
+[e $UE 2691  ]
+[; ;system.c: 208: }
+"208
+[e :UE 2691 ]
+}
+"210
+[v _SystemTest `(uc ~T0 @X0 1 ef ]
+"211
+{
+[; ;system.c: 210: char SystemTest(void)
+[; ;system.c: 211: {
 [e :U _SystemTest ]
 [f ]
-[; ;system.c: 174: return 1;
-"174
+[; ;system.c: 212: return 1;
+"212
 [e ) -> -> 1 `i `uc ]
-[e $UE 2683  ]
-[; ;system.c: 175: }
-"175
-[e :UE 2683 ]
+[e $UE 2692  ]
+[; ;system.c: 213: }
+"213
+[e :UE 2692 ]
 }

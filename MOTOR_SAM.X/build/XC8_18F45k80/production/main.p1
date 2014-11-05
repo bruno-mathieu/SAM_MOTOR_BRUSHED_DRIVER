@@ -1,94 +1,58 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"22 system.h
-[s S2670 `uc 1 `uc 1 `uc 1 ]
-[n S2670 RTC_counter AccelTick_ms GyroTick_ms MagnetTick_ms ]
-"35 main.c
+"36 main.c
 [c E19369 3 0 1 2 3 32 0 32 64 0 64 .. ]
 [n E19369 _ECAN_TX_MSG_FLAGS ECAN_TX_PRIORITY_BITS ECAN_TX_PRIORITY_0 ECAN_TX_PRIORITY_1 ECAN_TX_PRIORITY_2 ECAN_TX_PRIORITY_3 ECAN_TX_FRAME_BIT ECAN_TX_STD_FRAME ECAN_TX_XTD_FRAME ECAN_TX_RTR_BIT ECAN_TX_NO_RTR_FRAME ECAN_TX_RTR_FRAME  ]
-"29 system.h
+"27 system.h
 [s S2671 `ul 1 `uc -> 8 `i `uc 1 `E19369 1 ]
 [n S2671 CANTxMsg id data_TX dataLen flags ]
-"47
+"45
 [s S2673 `S2671 -> 10 `i `uc 1 `uc 1 `uc 1 `uc 1 ]
 [n S2673 CANTxFifo CANMsg LowIndex HighIndex Fifofull FifoEmpty ]
-"36 main.c
+"37 main.c
 [c E19387 8 16 32 64 128 .. ]
 [n E19387 _ECAN_RX_MSG_FLAGS ECAN_RX_OVERFLOW ECAN_RX_INVALID_MSG ECAN_RX_XTD_FRAME ECAN_RX_RTR_FRAME ECAN_RX_DBL_BUFFERED  ]
-"38 system.h
+"36 system.h
 [s S2672 `ul 1 `uc -> 8 `i `uc 1 `E19387 1 ]
 [n S2672 CANRxMsg id data_RX dataLen flags ]
-"58
+"56
 [s S2674 `S2672 -> 10 `i `uc 1 `uc 1 `uc 1 `uc 1 ]
 [n S2674 CANRxFifo CANMsg LowIndex HighIndex Fifofull FifoEmpty ]
-"70
-[s S2675 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `uc 1 ]
-[n S2675 SoundMsg SoundType Volume OnDuration OffDuration CurrentPhase CycleNumber CycleIndex Frequency OnTimeIndex OffTimeIndex ]
-"85
-[s S2676 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S2676 KeybMsg KeybCode OldKeybCode KeyPressedEvent LongPressDetected FirePressIndex LongPressIndex KeybTimerTicked KeybLongPressDelay KeybFireDelay ]
-"99
-[s S2677 `uc 1 `uc 1 `uc 1 ]
-[n S2677 LedDisp LightedLeds LedColor LedDiplayCycle ]
+"22
+[s S2670 `uc 1 `uc 1 ]
+[n S2670 MotionOrder PowerValue direction ]
 [p mainexit ]
-"115
+"113
 [v _ConfigureOscillator `(v ~T0 @X0 0 ef ]
 [v F19259 `(v ~T0 @X0 1 tf1`ul ]
 "147 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18.h
 [v __delay `JF19259 ~T0 @X0 0 e ]
 [p i __delay ]
-"116 system.h
+"114 system.h
 [v _ConfigureGPIO `(v ~T0 @X0 0 ef ]
-"123
+"121
 [v _GetCanAdress `(uc ~T0 @X0 0 ef ]
-"145 ECANPoll.h
-[v _ECANInitialize `(v ~T0 @X0 0 ef ]
-"32 Can_HL.h
-[v _ECANFiltersInit `(v ~T0 @X0 0 ef ]
-"120 system.h
+"118
 [v _ConfigureTimers `(v ~T0 @X0 0 ef ]
-"122
+"120
 [v _ConfigureCCP `(v ~T0 @X0 0 ef ]
 "24 Can_HL.h
 [v _CANTxFifoInit `(v ~T0 @X0 0 ef ]
 "25
 [v _CANRxFifoInit `(v ~T0 @X0 0 ef ]
-"118 system.h
+"25 motor.h
+[v _MotorInitVar `(v ~T0 @X0 0 ef ]
+"122 system.h
+[v _GetKeyCode `(uc ~T0 @X0 0 ef ]
+"116
 [v _ConfigureInterrupts `(v ~T0 @X0 0 ef ]
-"121
+"119
 [v _SystemTest `(uc ~T0 @X0 0 ef ]
-"30 Can_HL.h
-[v _GetCANRxFifo `(S2672 ~T0 @X0 0 ef ]
-"27
-[v _PutCANTxFifo `(v ~T0 @X0 0 ef1`S2671 ]
-[s S1660 :2 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S1660 . TXPRI . TXREQ TXERR TXLARB TXABT TXBIF ]
-[s S1661 :1 `uc 1 :1 `uc 1 ]
-[n S1661 . TXPRI0 TXPRI1 ]
-[s S1662 :7 `uc 1 :1 `uc 1 ]
-[n S1662 . . TX0IF ]
-[s S1663 :6 `uc 1 :1 `uc 1 ]
-[n S1663 . . TXB0ABT ]
-[s S1664 :4 `uc 1 :1 `uc 1 ]
-[n S1664 . . TXB0ERR ]
-[s S1665 :5 `uc 1 :1 `uc 1 ]
-[n S1665 . . TXB0LARB ]
-[s S1666 :1 `uc 1 ]
-[n S1666 . TXB0PRI0 ]
-[s S1667 :1 `uc 1 :1 `uc 1 ]
-[n S1667 . . TXB0PRI1 ]
-[s S1668 :3 `uc 1 :1 `uc 1 ]
-[n S1668 . . TXB0REQ ]
-[u S1659 `S1660 1 `S1661 1 `S1662 1 `S1663 1 `S1664 1 `S1665 1 `S1666 1 `S1667 1 `S1668 1 ]
-[n S1659 . . . . . . . . . . ]
-"25118 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
-[v _TXB0CONbits `VS1659 ~T0 @X0 0 e@3872 ]
-"28 Can_HL.h
-[v _GetCANTxFifo `(S2671 ~T0 @X0 0 ef ]
-"204 main.c
-[c E18559 0 1 .. ]
-[n E18559 _BOOL FALSE TRUE  ]
-"206 ECANPoll.h
-[v _ECANSendMessage `(E18559 ~T0 @X0 0 ef4`ul`*uc`uc`E19369 ]
+"24 motor.h
+[v _PutMotorOrder `(v ~T0 @X0 0 ef2`uc`uc ]
+"26
+[v _MotorMeanComputation `(v ~T0 @X0 0 ef ]
+"124 system.h
+[v _GetThrotle `(uc ~T0 @X0 0 ef ]
 [; ;htc.h: 22: extern void __builtin_software_breakpoint(void);
 [; ;pic18f45k80.h: 44: extern volatile unsigned char RXERRCNT @ 0xE41;
 "46 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
@@ -17776,73 +17740,74 @@ Version 3.2 HI-TECH Software Intermediate Code
 "1705 ECANPoll.h
 [v _RXBODBEN `VNb ~T0 @X0 1 s@31490 ]
 [; ;ECANPoll.h: 1705: static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
-[; ;system.h: 22: struct RTC_counter {
-[; ;system.h: 23: unsigned char AccelTick_ms;
-[; ;system.h: 24: unsigned char GyroTick_ms;
-[; ;system.h: 25: unsigned char MagnetTick_ms;
-[; ;system.h: 27: };
-[; ;system.h: 29: struct CANTxMsg{
-[; ;system.h: 31: unsigned long id;
-[; ;system.h: 32: BYTE data_TX[8];
-[; ;system.h: 33: BYTE dataLen;
-[; ;system.h: 34: ECAN_TX_MSG_FLAGS flags;
-[; ;system.h: 36: };
-[; ;system.h: 38: struct CANRxMsg{
-[; ;system.h: 40: unsigned long id;
-[; ;system.h: 41: BYTE data_RX[8];
-[; ;system.h: 42: BYTE dataLen;
-[; ;system.h: 43: ECAN_RX_MSG_FLAGS flags;
-[; ;system.h: 45: };
-[; ;system.h: 47: struct CANTxFifo{
-[; ;system.h: 49: struct CANTxMsg CANMsg[10];
-[; ;system.h: 51: unsigned char LowIndex;
-[; ;system.h: 52: unsigned char HighIndex;
-[; ;system.h: 53: unsigned char Fifofull;
-[; ;system.h: 54: unsigned char FifoEmpty;
-[; ;system.h: 56: };
-[; ;system.h: 58: struct CANRxFifo{
-[; ;system.h: 60: struct CANRxMsg CANMsg[10];
-[; ;system.h: 62: unsigned char LowIndex;
-[; ;system.h: 63: unsigned char HighIndex;
-[; ;system.h: 64: unsigned char Fifofull;
-[; ;system.h: 65: unsigned char FifoEmpty;
-[; ;system.h: 67: };
-[; ;system.h: 70: struct SoundMsg{
-[; ;system.h: 72: char SoundType;
-[; ;system.h: 73: char Volume;
-[; ;system.h: 74: char OnDuration;
-[; ;system.h: 75: char OffDuration;
-[; ;system.h: 76: char CurrentPhase;
-[; ;system.h: 77: char CycleNumber;
-[; ;system.h: 78: char CycleIndex;
-[; ;system.h: 79: unsigned int Frequency;
-[; ;system.h: 80: char OnTimeIndex;
-[; ;system.h: 81: char OffTimeIndex;
-[; ;system.h: 83: };
-[; ;system.h: 85: struct KeybMsg{
-[; ;system.h: 87: char KeybCode;
-[; ;system.h: 88: char OldKeybCode;
-[; ;system.h: 89: char KeyPressedEvent;
-[; ;system.h: 90: char LongPressDetected;
-[; ;system.h: 91: char FirePressIndex;
-[; ;system.h: 92: char LongPressIndex;
-[; ;system.h: 93: char KeybTimerTicked;
-[; ;system.h: 94: char KeybLongPressDelay;
-[; ;system.h: 95: char KeybFireDelay;
-[; ;system.h: 97: };
-[; ;system.h: 99: struct LedDisp{
-[; ;system.h: 100: char LightedLeds;
-[; ;system.h: 101: char LedColor;
-[; ;system.h: 102: char LedDiplayCycle;
-[; ;system.h: 104: };
-[; ;system.h: 115: void ConfigureOscillator(void);
-[; ;system.h: 116: void ConfigureGPIO(void);
-[; ;system.h: 117: void ConfigureAnalog(void);
-[; ;system.h: 118: void ConfigureInterrupts(void);
-[; ;system.h: 120: void ConfigureTimers(void);
-[; ;system.h: 121: char SystemTest(void);
-[; ;system.h: 122: void ConfigureCCP(void);
-[; ;system.h: 123: char GetCanAdress(void);
+[; ;system.h: 22: struct MotionOrder{
+[; ;system.h: 23: unsigned char PowerValue;
+[; ;system.h: 24: unsigned char direction;
+[; ;system.h: 25: };
+[; ;system.h: 27: struct CANTxMsg{
+[; ;system.h: 29: unsigned long id;
+[; ;system.h: 30: BYTE data_TX[8];
+[; ;system.h: 31: BYTE dataLen;
+[; ;system.h: 32: ECAN_TX_MSG_FLAGS flags;
+[; ;system.h: 34: };
+[; ;system.h: 36: struct CANRxMsg{
+[; ;system.h: 38: unsigned long id;
+[; ;system.h: 39: BYTE data_RX[8];
+[; ;system.h: 40: BYTE dataLen;
+[; ;system.h: 41: ECAN_RX_MSG_FLAGS flags;
+[; ;system.h: 43: };
+[; ;system.h: 45: struct CANTxFifo{
+[; ;system.h: 47: struct CANTxMsg CANMsg[10];
+[; ;system.h: 49: unsigned char LowIndex;
+[; ;system.h: 50: unsigned char HighIndex;
+[; ;system.h: 51: unsigned char Fifofull;
+[; ;system.h: 52: unsigned char FifoEmpty;
+[; ;system.h: 54: };
+[; ;system.h: 56: struct CANRxFifo{
+[; ;system.h: 58: struct CANRxMsg CANMsg[10];
+[; ;system.h: 60: unsigned char LowIndex;
+[; ;system.h: 61: unsigned char HighIndex;
+[; ;system.h: 62: unsigned char Fifofull;
+[; ;system.h: 63: unsigned char FifoEmpty;
+[; ;system.h: 65: };
+[; ;system.h: 68: struct SoundMsg{
+[; ;system.h: 70: char SoundType;
+[; ;system.h: 71: char Volume;
+[; ;system.h: 72: char OnDuration;
+[; ;system.h: 73: char OffDuration;
+[; ;system.h: 74: char CurrentPhase;
+[; ;system.h: 75: char CycleNumber;
+[; ;system.h: 76: char CycleIndex;
+[; ;system.h: 77: unsigned int Frequency;
+[; ;system.h: 78: char OnTimeIndex;
+[; ;system.h: 79: char OffTimeIndex;
+[; ;system.h: 81: };
+[; ;system.h: 83: struct KeybMsg{
+[; ;system.h: 85: char KeybCode;
+[; ;system.h: 86: char OldKeybCode;
+[; ;system.h: 87: char KeyPressedEvent;
+[; ;system.h: 88: char LongPressDetected;
+[; ;system.h: 89: char FirePressIndex;
+[; ;system.h: 90: char LongPressIndex;
+[; ;system.h: 91: char KeybTimerTicked;
+[; ;system.h: 92: char KeybLongPressDelay;
+[; ;system.h: 93: char KeybFireDelay;
+[; ;system.h: 95: };
+[; ;system.h: 97: struct LedDisp{
+[; ;system.h: 98: char LightedLeds;
+[; ;system.h: 99: char LedColor;
+[; ;system.h: 100: char LedDiplayCycle;
+[; ;system.h: 102: };
+[; ;system.h: 113: void ConfigureOscillator(void);
+[; ;system.h: 114: void ConfigureGPIO(void);
+[; ;system.h: 115: void ConfigureAnalog(void);
+[; ;system.h: 116: void ConfigureInterrupts(void);
+[; ;system.h: 118: void ConfigureTimers(void);
+[; ;system.h: 119: char SystemTest(void);
+[; ;system.h: 120: void ConfigureCCP(void);
+[; ;system.h: 121: char GetCanAdress(void);
+[; ;system.h: 122: char GetKeyCode(void);
+[; ;system.h: 124: char GetThrotle(void);
 [; ;Can_HL.h: 24: void CANTxFifoInit(void);
 [; ;Can_HL.h: 25: void CANRxFifoInit(void);
 [; ;Can_HL.h: 27: void PutCANTxFifo(struct CANTxMsg PutMessage);
@@ -17850,259 +17815,229 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_HL.h: 29: void PutCANRxFifo(struct CANRxMsg PutMessage);
 [; ;Can_HL.h: 30: struct CANRxMsg GetCANRxFifo(void);
 [; ;Can_HL.h: 32: void ECANFiltersInit(void);
-"32 main.c
-[v _TickCounter `S2670 ~T0 @X0 1 e ]
-[; ;main.c: 32: struct RTC_counter TickCounter;
-"35
-[v _CANTxFifo `S2673 ~T0 @X0 1 e ]
-[; ;main.c: 35: struct CANTxFifo CANTxFifo;
+[; ;motor.h: 24: void PutMotorOrder(char value,char direction);
+[; ;motor.h: 25: void MotorInitVar(void);
+[; ;motor.h: 26: void MotorMeanComputation(void);
+"33 main.c
+[v _msTickCounter `uc ~T0 @X0 1 e ]
+[; ;main.c: 33: unsigned char msTickCounter;
 "36
-[v _CANRxFifo `S2674 ~T0 @X0 1 e ]
-[; ;main.c: 36: struct CANRxFifo CANRxFifo;
+[v _CANTxFifo `S2673 ~T0 @X0 1 e ]
+[; ;main.c: 36: struct CANTxFifo CANTxFifo;
 "37
+[v _CANRxFifo `S2674 ~T0 @X0 1 e ]
+[; ;main.c: 37: struct CANRxFifo CANRxFifo;
+"38
 [v _LocalCanAdress `uc ~T0 @X0 1 e ]
-[; ;main.c: 37: char LocalCanAdress;
-"40
-[v _SoundMsg `S2675 ~T0 @X0 1 e ]
-[; ;main.c: 40: struct SoundMsg SoundMsg;
+[; ;main.c: 38: char LocalCanAdress;
+"39
+[v _MotorTypeIdentifierAdress `uc ~T0 @X0 1 e ]
+[; ;main.c: 39: char MotorTypeIdentifierAdress;
 "43
-[v _SoundTimerTicked `uc ~T0 @X0 1 e ]
-[; ;main.c: 43: char SoundTimerTicked;
-"46
-[v _KeybMsg `S2676 ~T0 @X0 1 e ]
-[; ;main.c: 46: struct KeybMsg KeybMsg;
-"49
-[v _LedDisp `S2677 ~T0 @X0 1 e ]
-[; ;main.c: 49: struct LedDisp LedDisp;
-"55
+[v _TempMotorOrdertable `uc ~T0 @X0 -> 64 `i e ]
+[; ;main.c: 43: char TempMotorOrdertable[64];
+"44
+[v _UserOrder `S2670 ~T0 @X0 1 e ]
+[; ;main.c: 44: struct MotionOrder UserOrder ;
+"45
+[v _MotorOrder `S2670 ~T0 @X0 1 e ]
+[; ;main.c: 45: struct MotionOrder MotorOrder ;
+"51
 [v _main `(v ~T0 @X0 1 ef ]
-"56
+"52
 {
-[; ;main.c: 55: void main(void)
-[; ;main.c: 56: {
+[; ;main.c: 51: void main(void)
+[; ;main.c: 52: {
 [e :U _main ]
 [f ]
-"57
+"53
 [v _TempVar `uc ~T0 @X0 1 a ]
-"58
+"54
 [v _TempVarInt `ui ~T0 @X0 1 a ]
-"61
+"56
+[v _OldKeyCode `uc ~T0 @X0 1 a ]
+"57
+[v _KeyEvent `uc ~T0 @X0 1 a ]
+"58
+[v _OrderLocked `uc ~T0 @X0 1 a ]
+[; ;main.c: 53: char TempVar;
+[; ;main.c: 54: unsigned int TempVarInt;
+[; ;main.c: 56: char OldKeyCode;
+[; ;main.c: 57: char KeyEvent;
+[; ;main.c: 58: char OrderLocked=0;
+[e = _OrderLocked -> -> 0 `i `uc ]
+"59
+[v _ThrottlePosition `uc ~T0 @X0 1 a ]
+"62
 [v _AutotestResult `uc ~T0 @X0 1 a ]
-"64
+"65
 [v _TempCANTxMsg `S2671 ~T0 @X0 1 a ]
-"67
+"68
 [v _TempCANRxMsg `S2672 ~T0 @X0 1 a ]
-[; ;main.c: 57: char TempVar;
-[; ;main.c: 58: unsigned int TempVarInt;
-[; ;main.c: 61: char AutotestResult;
-[; ;main.c: 64: struct CANTxMsg TempCANTxMsg;
-[; ;main.c: 67: struct CANRxMsg TempCANRxMsg;
-[; ;main.c: 75: ConfigureOscillator();
-"75
-[e ( _ConfigureOscillator ..  ]
-[; ;main.c: 76: _delay((unsigned long)((10)*(64000000/4000.0)));
+[; ;main.c: 59: char ThrottlePosition;
+[; ;main.c: 62: char AutotestResult;
+[; ;main.c: 65: struct CANTxMsg TempCANTxMsg;
+[; ;main.c: 68: struct CANRxMsg TempCANRxMsg;
+[; ;main.c: 76: ConfigureOscillator();
 "76
+[e ( _ConfigureOscillator ..  ]
+[; ;main.c: 77: _delay((unsigned long)((10)*(64000000/4000.0)));
+"77
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 64000000 `l `d .4000.0 `ul ]
-[; ;main.c: 79: ConfigureGPIO();
-"79
+[; ;main.c: 80: ConfigureGPIO();
+"80
 [e ( _ConfigureGPIO ..  ]
-[; ;main.c: 82: LocalCanAdress = GetCanAdress();
-"82
+[; ;main.c: 83: LocalCanAdress = GetCanAdress();
+"83
 [e = _LocalCanAdress ( _GetCanAdress ..  ]
-[; ;main.c: 84: ECANInitialize();
-"84
-[e ( _ECANInitialize ..  ]
-[; ;main.c: 86: ECANFiltersInit();
-"86
-[e ( _ECANFiltersInit ..  ]
-[; ;main.c: 89: ConfigureTimers();
-"89
+[; ;main.c: 90: ConfigureTimers();
+"90
 [e ( _ConfigureTimers ..  ]
-[; ;main.c: 92: ConfigureCCP();
-"92
+[; ;main.c: 93: ConfigureCCP();
+"93
 [e ( _ConfigureCCP ..  ]
-[; ;main.c: 99: CANTxFifoInit();
-"99
-[e ( _CANTxFifoInit ..  ]
-[; ;main.c: 100: CANRxFifoInit();
+[; ;main.c: 100: msTickCounter=0;
 "100
+[e = _msTickCounter -> -> 0 `i `uc ]
+[; ;main.c: 103: CANTxFifoInit();
+"103
+[e ( _CANTxFifoInit ..  ]
+[; ;main.c: 104: CANRxFifoInit();
+"104
 [e ( _CANRxFifoInit ..  ]
-[; ;main.c: 106: _delay((unsigned long)((10)*(64000000/4000.0)));
-"106
+[; ;main.c: 107: MotorInitVar();
+"107
+[e ( _MotorInitVar ..  ]
+[; ;main.c: 108: UserOrder.PowerValue=0;
+"108
+[e = . _UserOrder 0 -> -> 0 `i `uc ]
+[; ;main.c: 109: MotorOrder.PowerValue=0;
+"109
+[e = . _MotorOrder 0 -> -> 0 `i `uc ]
+[; ;main.c: 111: OldKeyCode=GetKeyCode();
+"111
+[e = _OldKeyCode ( _GetKeyCode ..  ]
+[; ;main.c: 112: KeyEvent=0;
+"112
+[e = _KeyEvent -> -> 0 `i `uc ]
+[; ;main.c: 118: _delay((unsigned long)((10)*(64000000/4000.0)));
+"118
 [e ( __delay (1 -> * -> -> 10 `i `d / -> -> 64000000 `l `d .4000.0 `ul ]
-[; ;main.c: 113: ConfigureInterrupts();
-"113
+[; ;main.c: 125: ConfigureInterrupts();
+"125
 [e ( _ConfigureInterrupts ..  ]
-[; ;main.c: 115: AutotestResult = SystemTest();
-"115
+[; ;main.c: 127: AutotestResult = SystemTest();
+"127
 [e = _AutotestResult ( _SystemTest ..  ]
-[; ;main.c: 123: while(1)
-"123
+[; ;main.c: 133: PutMotorOrder(0,2);
+"133
+[e ( _PutMotorOrder (2 , -> -> 0 `i `uc -> -> 2 `i `uc ]
+[; ;main.c: 138: while(1)
+"138
 [e :U 2680 ]
-[; ;main.c: 124: {
-"124
+[; ;main.c: 139: {
+"139
 {
-[; ;main.c: 142: if (!CANRxFifo.FifoEmpty)
-"142
-[e $ ! ! != -> . _CANRxFifo 4 `i -> -> -> 0 `i `uc `i 2682  ]
-[; ;main.c: 143: {
-"143
-{
-[; ;main.c: 145: TempCANRxMsg = GetCANRxFifo();
-"145
-[e = _TempCANRxMsg ( _GetCANRxFifo ..  ]
-[; ;main.c: 147: if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0))
-"147
-[e $ ! == . _TempCANRxMsg 0 -> -> | | << -> 7 `i -> 7 `i << -> _LocalCanAdress `i -> 4 `i -> 0 `i `l `ul 2683  ]
-[; ;main.c: 148: {
-"148
-{
-[; ;main.c: 149: if (TempCANRxMsg.data_RX[0] == 0x1 && TempCANRxMsg.dataLen == 1)
-"149
-[e $ ! && == -> *U + &U . _TempCANRxMsg 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _TempCANRxMsg 1 `ui `ux `i -> 1 `i == -> . _TempCANRxMsg 2 `i -> 1 `i 2684  ]
-[; ;main.c: 150: {
-"150
-{
-"152
-}
-[; ;main.c: 152: }
-[e $U 2685  ]
+[; ;main.c: 153: if(msTickCounter==1)
 "153
-[e :U 2684 ]
-[; ;main.c: 153: else if (TempCANRxMsg.data_RX[0] == 0x2 && TempCANRxMsg.dataLen == 3)
-[e $ ! && == -> *U + &U . _TempCANRxMsg 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _TempCANRxMsg 1 `ui `ux `i -> 2 `i == -> . _TempCANRxMsg 2 `i -> 3 `i 2686  ]
+[e $ ! == -> _msTickCounter `i -> 1 `i 2682  ]
 [; ;main.c: 154: {
 "154
 {
+[; ;main.c: 155: MotorMeanComputation();
+"155
+[e ( _MotorMeanComputation ..  ]
+[; ;main.c: 156: msTickCounter=0;
 "156
-}
-[; ;main.c: 156: }
-[e $U 2687  ]
+[e = _msTickCounter -> -> 0 `i `uc ]
+[; ;main.c: 157: PutMotorOrder(MotorOrder.PowerValue,MotorOrder.direction);
 "157
-[e :U 2686 ]
-[; ;main.c: 157: else if (TempCANRxMsg.data_RX[0] == 0x3 && TempCANRxMsg.dataLen == 2)
-[e $ ! && == -> *U + &U . _TempCANRxMsg 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _TempCANRxMsg 1 `ui `ux `i -> 3 `i == -> . _TempCANRxMsg 2 `i -> 2 `i 2688  ]
-[; ;main.c: 158: {
-"158
+[e ( _PutMotorOrder (2 , . _MotorOrder 0 . _MotorOrder 1 ]
+[; ;main.c: 159: ThrottlePosition=GetThrotle();
+"159
+[e = _ThrottlePosition ( _GetThrotle ..  ]
+[; ;main.c: 162: if(GetKeyCode()==0b00000000 && OrderLocked==0)
+"162
+[e $ ! && == -> ( _GetKeyCode ..  `i -> 0 `i == -> _OrderLocked `i -> 0 `i 2683  ]
+[; ;main.c: 163: {
+"163
 {
-"160
-}
-[e :U 2688 ]
-"161
-[e :U 2687 ]
-[e :U 2685 ]
-}
-[; ;main.c: 160: }
-[; ;main.c: 161: }
-[e $U 2689  ]
+[; ;main.c: 164: UserOrder.PowerValue=ThrottlePosition;
+"164
+[e = . _UserOrder 0 _ThrottlePosition ]
+[; ;main.c: 165: UserOrder.direction=1;
+"165
+[e = . _UserOrder 1 -> -> 1 `i `uc ]
 "166
+}
 [e :U 2683 ]
-[; ;main.c: 166: else if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0x6))
-[e $ ! == . _TempCANRxMsg 0 -> -> | | << -> 7 `i -> 7 `i << -> _LocalCanAdress `i -> 4 `i -> 6 `i `l `ul 2690  ]
-[; ;main.c: 167: {
-"167
-{
-[; ;main.c: 168: if (TempCANRxMsg.dataLen == 2 && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
-"168
-[e $ ! && == -> . _TempCANRxMsg 2 `i -> 2 `i == -> . _TempCANRxMsg 3 `i -> . `E19387 3 `i 2691  ]
-[; ;main.c: 169: {
-"169
-{
-[; ;main.c: 170: TempCANTxMsg.data_TX[0]=1;
+[; ;main.c: 166: }
+[; ;main.c: 170: if(OrderLocked==1 && ThrottlePosition<25)
 "170
-[e = *U + &U . _TempCANTxMsg 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _TempCANTxMsg 1 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 171: TempCANTxMsg.data_TX[1]=0;
+[e $ ! && == -> _OrderLocked `i -> 1 `i < -> _ThrottlePosition `i -> 25 `i 2684  ]
+[; ;main.c: 171: {
 "171
-[e = *U + &U . _TempCANTxMsg 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _TempCANTxMsg 1 `ui `ux -> -> 0 `i `uc ]
-[; ;main.c: 172: TempCANTxMsg.dataLen= 2;
+{
+[; ;main.c: 172: UserOrder.PowerValue=ThrottlePosition;
 "172
-[e = . _TempCANTxMsg 2 -> -> 2 `i `uc ]
-[; ;main.c: 173: TempCANTxMsg.id = (0x07 << 7 | LocalCanAdress <<4 | 0x6 );
+[e = . _UserOrder 0 _ThrottlePosition ]
+[; ;main.c: 173: UserOrder.direction=1;
 "173
-[e = . _TempCANTxMsg 0 -> -> | | << -> 7 `i -> 7 `i << -> _LocalCanAdress `i -> 4 `i -> 6 `i `l `ul ]
-[; ;main.c: 174: TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
+[e = . _UserOrder 1 -> -> 1 `i `uc ]
+[; ;main.c: 174: OrderLocked=0;
 "174
-[e = . _TempCANTxMsg 3 -> . `E19369 6 `E19369 ]
-[; ;main.c: 175: PutCANTxFifo(TempCANTxMsg);
+[e = _OrderLocked -> -> 0 `i `uc ]
 "175
-[e ( _PutCANTxFifo (1 _TempCANTxMsg ]
-"176
 }
-[e :U 2691 ]
-"177
-}
-[; ;main.c: 176: }
-[; ;main.c: 177: }
-[e $U 2692  ]
+[e :U 2684 ]
+[; ;main.c: 175: }
+[; ;main.c: 178: if(GetKeyCode()==0b00100000 && (UserOrder.direction==0 || UserOrder.PowerValue==0))
+"178
+[e $ ! && == -> ( _GetKeyCode ..  `i -> 32 `i || == -> . _UserOrder 1 `i -> 0 `i == -> . _UserOrder 0 `i -> 0 `i 2685  ]
+[; ;main.c: 179: {
+"179
+{
+[; ;main.c: 180: UserOrder.PowerValue=50;
+"180
+[e = . _UserOrder 0 -> -> 50 `i `uc ]
+[; ;main.c: 181: UserOrder.direction=0;
 "181
-[e :U 2690 ]
-[; ;main.c: 181: else if (TempCANRxMsg.id == (0x07 << 7 | LocalCanAdress << 4 | 0xF))
-[e $ ! == . _TempCANRxMsg 0 -> -> | | << -> 7 `i -> 7 `i << -> _LocalCanAdress `i -> 4 `i -> 15 `i `l `ul 2693  ]
-[; ;main.c: 182: {
+[e = . _UserOrder 1 -> -> 0 `i `uc ]
 "182
-{
-[; ;main.c: 184: if (TempCANRxMsg.dataLen == 2 && TempCANRxMsg.flags == ECAN_RX_RTR_FRAME)
-"184
-[e $ ! && == -> . _TempCANRxMsg 2 `i -> 2 `i == -> . _TempCANRxMsg 3 `i -> . `E19387 3 `i 2694  ]
-[; ;main.c: 185: {
+}
+[e :U 2685 ]
+[; ;main.c: 182: }
+[; ;main.c: 185: if(GetKeyCode()==0b00100000 && OrderLocked==0 && UserOrder.direction==1 && UserOrder.PowerValue>25)
 "185
-{
-[; ;main.c: 186: TempCANTxMsg.data_TX[0]=1;
+[e $ ! && && && == -> ( _GetKeyCode ..  `i -> 32 `i == -> _OrderLocked `i -> 0 `i == -> . _UserOrder 1 `i -> 1 `i > -> . _UserOrder 0 `i -> 25 `i 2686  ]
+[; ;main.c: 186: {
 "186
-[e = *U + &U . _TempCANTxMsg 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . _TempCANTxMsg 1 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 187: TempCANTxMsg.data_TX[1]=1;
+{
+[; ;main.c: 187: OrderLocked=1;
 "187
-[e = *U + &U . _TempCANTxMsg 1 * -> -> -> 1 `i `ui `ux -> -> # *U &U . _TempCANTxMsg 1 `ui `ux -> -> 1 `i `uc ]
-[; ;main.c: 188: TempCANTxMsg.dataLen= 2;
+[e = _OrderLocked -> -> 1 `i `uc ]
+[; ;main.c: 188: UserOrder.PowerValue=ThrottlePosition;
 "188
-[e = . _TempCANTxMsg 2 -> -> 2 `i `uc ]
-[; ;main.c: 189: TempCANTxMsg.id = (0x07 << 7 | LocalCanAdress <<4 | 0xF );
+[e = . _UserOrder 0 _ThrottlePosition ]
+[; ;main.c: 189: UserOrder.direction=1;
 "189
-[e = . _TempCANTxMsg 0 -> -> | | << -> 7 `i -> 7 `i << -> _LocalCanAdress `i -> 4 `i -> 15 `i `l `ul ]
-[; ;main.c: 190: TempCANTxMsg.flags = ECAN_TX_STD_FRAME;
+[e = . _UserOrder 1 -> -> 1 `i `uc ]
 "190
-[e = . _TempCANTxMsg 3 -> . `E19369 6 `E19369 ]
-[; ;main.c: 191: PutCANTxFifo(TempCANTxMsg);
-"191
-[e ( _PutCANTxFifo (1 _TempCANTxMsg ]
-"192
 }
-[e :U 2694 ]
-"193
-}
-[e :U 2693 ]
-"194
-[e :U 2692 ]
-[e :U 2689 ]
+[e :U 2686 ]
+"242
 }
 [e :U 2682 ]
-[; ;main.c: 192: }
-[; ;main.c: 193: }
-[; ;main.c: 194: }
-[; ;main.c: 201: if(!CANTxFifo.FifoEmpty && !TXB0CONbits.TXREQ)
-"201
-[e $ ! && ! != -> . _CANTxFifo 4 `i -> -> -> 0 `i `uc `i ! != -> . . _TXB0CONbits 0 2 `i -> -> -> 0 `i `Vuc `i 2695  ]
-[; ;main.c: 202: {
-"202
-{
-[; ;main.c: 203: TempCANTxMsg=GetCANTxFifo();
-"203
-[e = _TempCANTxMsg ( _GetCANTxFifo ..  ]
-[; ;main.c: 204: ECANSendMessage(TempCANTxMsg.id,TempCANTxMsg.data_TX,TempCANTxMsg.dataLen,TempCANTxMsg.flags);
-"204
-[e ( _ECANSendMessage (4 , , , . _TempCANTxMsg 0 &U . _TempCANTxMsg 1 . _TempCANTxMsg 2 . _TempCANTxMsg 3 ]
-"205
-}
-[e :U 2695 ]
-"208
+"246
 }
 [e :U 2679 ]
-"123
+"138
 [e $U 2680  ]
 [e :U 2681 ]
-[; ;main.c: 205: }
-[; ;main.c: 208: }
-[; ;main.c: 210: }
-"210
+[; ;main.c: 190: }
+[; ;main.c: 242: }
+[; ;main.c: 246: }
+[; ;main.c: 248: }
+"248
 [e :UE 2678 ]
 }

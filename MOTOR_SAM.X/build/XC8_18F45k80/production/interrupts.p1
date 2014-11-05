@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"48 interrupts.c
+"44 interrupts.c
 [c E19327 8 16 32 64 128 .. ]
 [n E19327 _ECAN_RX_MSG_FLAGS ECAN_RX_OVERFLOW ECAN_RX_INVALID_MSG ECAN_RX_XTD_FRAME ECAN_RX_RTR_FRAME ECAN_RX_DBL_BUFFERED  ]
-"38 system.h
+"36 system.h
 [s S2671 `ul 1 `uc -> 8 `i `uc 1 `E19327 1 ]
 [n S2671 CANRxMsg id data_RX dataLen flags ]
 [s S2100 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
@@ -13,7 +13,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S2099 . . . ]
 "32238 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
 [v _PIR5bits `VS2099 ~T0 @X0 0 e@3959 ]
-"58 interrupts.c
+"54 interrupts.c
 [c E18559 0 1 .. ]
 [n E18559 _BOOL FALSE TRUE  ]
 "313 ECANPoll.h
@@ -34,18 +34,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S2590 . . . . . . ]
 "40122 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
 [v _INTCONbits `VS2590 ~T0 @X0 0 e@4082 ]
-"28 interrupts.c
-[v _SoundTimerTicked `uc ~T0 @X0 0 e ]
-"85 system.h
-[s S2675 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 ]
-[n S2675 KeybMsg KeybCode OldKeybCode KeyPressedEvent LongPressDetected FirePressIndex LongPressIndex KeybTimerTicked KeybLongPressDelay KeybFireDelay ]
-"29 interrupts.c
-[v _KeybMsg `S2675 ~T0 @X0 0 e ]
-"70 system.h
-[s S2674 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `uc 1 `ui 1 `uc 1 `uc 1 ]
-[n S2674 SoundMsg SoundType Volume OnDuration OffDuration CurrentPhase CycleNumber CycleIndex Frequency OnTimeIndex OffTimeIndex ]
-"27 interrupts.c
-[v _SoundMsg `S2674 ~T0 @X0 0 e ]
+"25 interrupts.c
+[v _msTickCounter `uc ~T0 @X0 0 e ]
 "39315 C:\Program Files (x86)\Microchip\xc8\v1.30\include\pic18f45k80.h
 [v _TMR0H `Vuc ~T0 @X0 0 e@4055 ]
 "39296
@@ -17707,73 +17697,74 @@ Version 3.2 HI-TECH Software Intermediate Code
 "1705 ECANPoll.h
 [v _RXBODBEN `VNb ~T0 @X0 1 s@31490 ]
 [; ;ECANPoll.h: 1705: static volatile near bit RXBODBEN @ ((unsigned)&RXB0CON*8)+2;
-[; ;system.h: 22: struct RTC_counter {
-[; ;system.h: 23: unsigned char AccelTick_ms;
-[; ;system.h: 24: unsigned char GyroTick_ms;
-[; ;system.h: 25: unsigned char MagnetTick_ms;
-[; ;system.h: 27: };
-[; ;system.h: 29: struct CANTxMsg{
-[; ;system.h: 31: unsigned long id;
-[; ;system.h: 32: BYTE data_TX[8];
-[; ;system.h: 33: BYTE dataLen;
-[; ;system.h: 34: ECAN_TX_MSG_FLAGS flags;
-[; ;system.h: 36: };
-[; ;system.h: 38: struct CANRxMsg{
-[; ;system.h: 40: unsigned long id;
-[; ;system.h: 41: BYTE data_RX[8];
-[; ;system.h: 42: BYTE dataLen;
-[; ;system.h: 43: ECAN_RX_MSG_FLAGS flags;
-[; ;system.h: 45: };
-[; ;system.h: 47: struct CANTxFifo{
-[; ;system.h: 49: struct CANTxMsg CANMsg[10];
-[; ;system.h: 51: unsigned char LowIndex;
-[; ;system.h: 52: unsigned char HighIndex;
-[; ;system.h: 53: unsigned char Fifofull;
-[; ;system.h: 54: unsigned char FifoEmpty;
-[; ;system.h: 56: };
-[; ;system.h: 58: struct CANRxFifo{
-[; ;system.h: 60: struct CANRxMsg CANMsg[10];
-[; ;system.h: 62: unsigned char LowIndex;
-[; ;system.h: 63: unsigned char HighIndex;
-[; ;system.h: 64: unsigned char Fifofull;
-[; ;system.h: 65: unsigned char FifoEmpty;
-[; ;system.h: 67: };
-[; ;system.h: 70: struct SoundMsg{
-[; ;system.h: 72: char SoundType;
-[; ;system.h: 73: char Volume;
-[; ;system.h: 74: char OnDuration;
-[; ;system.h: 75: char OffDuration;
-[; ;system.h: 76: char CurrentPhase;
-[; ;system.h: 77: char CycleNumber;
-[; ;system.h: 78: char CycleIndex;
-[; ;system.h: 79: unsigned int Frequency;
-[; ;system.h: 80: char OnTimeIndex;
-[; ;system.h: 81: char OffTimeIndex;
-[; ;system.h: 83: };
-[; ;system.h: 85: struct KeybMsg{
-[; ;system.h: 87: char KeybCode;
-[; ;system.h: 88: char OldKeybCode;
-[; ;system.h: 89: char KeyPressedEvent;
-[; ;system.h: 90: char LongPressDetected;
-[; ;system.h: 91: char FirePressIndex;
-[; ;system.h: 92: char LongPressIndex;
-[; ;system.h: 93: char KeybTimerTicked;
-[; ;system.h: 94: char KeybLongPressDelay;
-[; ;system.h: 95: char KeybFireDelay;
-[; ;system.h: 97: };
-[; ;system.h: 99: struct LedDisp{
-[; ;system.h: 100: char LightedLeds;
-[; ;system.h: 101: char LedColor;
-[; ;system.h: 102: char LedDiplayCycle;
-[; ;system.h: 104: };
-[; ;system.h: 115: void ConfigureOscillator(void);
-[; ;system.h: 116: void ConfigureGPIO(void);
-[; ;system.h: 117: void ConfigureAnalog(void);
-[; ;system.h: 118: void ConfigureInterrupts(void);
-[; ;system.h: 120: void ConfigureTimers(void);
-[; ;system.h: 121: char SystemTest(void);
-[; ;system.h: 122: void ConfigureCCP(void);
-[; ;system.h: 123: char GetCanAdress(void);
+[; ;system.h: 22: struct MotionOrder{
+[; ;system.h: 23: unsigned char PowerValue;
+[; ;system.h: 24: unsigned char direction;
+[; ;system.h: 25: };
+[; ;system.h: 27: struct CANTxMsg{
+[; ;system.h: 29: unsigned long id;
+[; ;system.h: 30: BYTE data_TX[8];
+[; ;system.h: 31: BYTE dataLen;
+[; ;system.h: 32: ECAN_TX_MSG_FLAGS flags;
+[; ;system.h: 34: };
+[; ;system.h: 36: struct CANRxMsg{
+[; ;system.h: 38: unsigned long id;
+[; ;system.h: 39: BYTE data_RX[8];
+[; ;system.h: 40: BYTE dataLen;
+[; ;system.h: 41: ECAN_RX_MSG_FLAGS flags;
+[; ;system.h: 43: };
+[; ;system.h: 45: struct CANTxFifo{
+[; ;system.h: 47: struct CANTxMsg CANMsg[10];
+[; ;system.h: 49: unsigned char LowIndex;
+[; ;system.h: 50: unsigned char HighIndex;
+[; ;system.h: 51: unsigned char Fifofull;
+[; ;system.h: 52: unsigned char FifoEmpty;
+[; ;system.h: 54: };
+[; ;system.h: 56: struct CANRxFifo{
+[; ;system.h: 58: struct CANRxMsg CANMsg[10];
+[; ;system.h: 60: unsigned char LowIndex;
+[; ;system.h: 61: unsigned char HighIndex;
+[; ;system.h: 62: unsigned char Fifofull;
+[; ;system.h: 63: unsigned char FifoEmpty;
+[; ;system.h: 65: };
+[; ;system.h: 68: struct SoundMsg{
+[; ;system.h: 70: char SoundType;
+[; ;system.h: 71: char Volume;
+[; ;system.h: 72: char OnDuration;
+[; ;system.h: 73: char OffDuration;
+[; ;system.h: 74: char CurrentPhase;
+[; ;system.h: 75: char CycleNumber;
+[; ;system.h: 76: char CycleIndex;
+[; ;system.h: 77: unsigned int Frequency;
+[; ;system.h: 78: char OnTimeIndex;
+[; ;system.h: 79: char OffTimeIndex;
+[; ;system.h: 81: };
+[; ;system.h: 83: struct KeybMsg{
+[; ;system.h: 85: char KeybCode;
+[; ;system.h: 86: char OldKeybCode;
+[; ;system.h: 87: char KeyPressedEvent;
+[; ;system.h: 88: char LongPressDetected;
+[; ;system.h: 89: char FirePressIndex;
+[; ;system.h: 90: char LongPressIndex;
+[; ;system.h: 91: char KeybTimerTicked;
+[; ;system.h: 92: char KeybLongPressDelay;
+[; ;system.h: 93: char KeybFireDelay;
+[; ;system.h: 95: };
+[; ;system.h: 97: struct LedDisp{
+[; ;system.h: 98: char LightedLeds;
+[; ;system.h: 99: char LedColor;
+[; ;system.h: 100: char LedDiplayCycle;
+[; ;system.h: 102: };
+[; ;system.h: 113: void ConfigureOscillator(void);
+[; ;system.h: 114: void ConfigureGPIO(void);
+[; ;system.h: 115: void ConfigureAnalog(void);
+[; ;system.h: 116: void ConfigureInterrupts(void);
+[; ;system.h: 118: void ConfigureTimers(void);
+[; ;system.h: 119: char SystemTest(void);
+[; ;system.h: 120: void ConfigureCCP(void);
+[; ;system.h: 121: char GetCanAdress(void);
+[; ;system.h: 122: char GetKeyCode(void);
+[; ;system.h: 124: char GetThrotle(void);
 [; ;Can_HL.h: 24: void CANTxFifoInit(void);
 [; ;Can_HL.h: 25: void CANRxFifoInit(void);
 [; ;Can_HL.h: 27: void PutCANTxFifo(struct CANTxMsg PutMessage);
@@ -17781,148 +17772,78 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Can_HL.h: 29: void PutCANRxFifo(struct CANRxMsg PutMessage);
 [; ;Can_HL.h: 30: struct CANRxMsg GetCANRxFifo(void);
 [; ;Can_HL.h: 32: void ECANFiltersInit(void);
-[; ;interrupts.c: 25: extern struct CANRxFifo CANRxFifo;
-[; ;interrupts.c: 27: extern struct SoundMsg SoundMsg;
-[; ;interrupts.c: 28: extern char SoundTimerTicked;
-[; ;interrupts.c: 29: extern struct KeybMsg KeybMsg;
-[v F19443 `(v ~T0 @X0 1 tf ]
-"38 interrupts.c
-[v _high_isr `IF19443 ~T0 @X0 1 e ]
-"47
+[; ;interrupts.c: 24: extern struct CANRxFifo CANRxFifo;
+[; ;interrupts.c: 25: extern unsigned char msTickCounter;
+[v F19444 `(v ~T0 @X0 1 tf ]
+"34 interrupts.c
+[v _high_isr `IF19444 ~T0 @X0 1 e ]
+"43
 {
-[; ;interrupts.c: 38: void interrupt high_isr(void)
-[; ;interrupts.c: 47: {
+[; ;interrupts.c: 34: void interrupt high_isr(void)
+[; ;interrupts.c: 43: {
 [e :U _high_isr ]
 [f ]
-"48
+"44
 [v _CANRxNewMessage `S2671 ~T0 @X0 1 a ]
-[; ;interrupts.c: 48: struct CANRxMsg CANRxNewMessage;
-[; ;interrupts.c: 55: if(PIR5bits.RXB0IF==1 | PIR5bits.RXB1IF==1)
-"55
+[; ;interrupts.c: 44: struct CANRxMsg CANRxNewMessage;
+[; ;interrupts.c: 51: if(PIR5bits.RXB0IF==1 | PIR5bits.RXB1IF==1)
+"51
 [e $ ! | == -> . . _PIR5bits 0 0 `i -> 1 `i == -> . . _PIR5bits 0 1 `i -> 1 `i 2678  ]
-[; ;interrupts.c: 56: {
-"56
+[; ;interrupts.c: 52: {
+"52
 {
-[; ;interrupts.c: 58: ECANReceiveMessage(&CANRxNewMessage.id, CANRxNewMessage.data_RX, &CANRxNewMessage.dataLen, &CANRxNewMessage.flags);
-"58
+[; ;interrupts.c: 54: ECANReceiveMessage(&CANRxNewMessage.id, CANRxNewMessage.data_RX, &CANRxNewMessage.dataLen, &CANRxNewMessage.flags);
+"54
 [e ( _ECANReceiveMessage (4 , , , &U . _CANRxNewMessage 0 &U . _CANRxNewMessage 1 &U . _CANRxNewMessage 2 &U . _CANRxNewMessage 3 ]
-[; ;interrupts.c: 59: PutCANRxFifo(CANRxNewMessage);
-"59
+[; ;interrupts.c: 55: PutCANRxFifo(CANRxNewMessage);
+"55
 [e ( _PutCANRxFifo (1 _CANRxNewMessage ]
-[; ;interrupts.c: 61: PIR5bits.RXB0IF=0;
-"61
+[; ;interrupts.c: 57: PIR5bits.RXB0IF=0;
+"57
 [e = . . _PIR5bits 0 0 -> -> 0 `i `uc ]
-[; ;interrupts.c: 62: PIR5bits.RXB1IF=0;
-"62
+[; ;interrupts.c: 58: PIR5bits.RXB1IF=0;
+"58
 [e = . . _PIR5bits 0 1 -> -> 0 `i `uc ]
-"63
+"59
 }
 [e :U 2678 ]
-[; ;interrupts.c: 63: }
-[; ;interrupts.c: 68: }
-"68
+[; ;interrupts.c: 59: }
+[; ;interrupts.c: 64: }
+"64
 [e :UE 2677 ]
 }
-[v F19447 `(v ~T0 @X0 1 tf ]
-"73
-[v _low_isr `ILF19447 ~T0 @X0 1 e ]
-"81
+[v F19448 `(v ~T0 @X0 1 tf ]
+"69
+[v _low_isr `ILF19448 ~T0 @X0 1 e ]
+"77
 {
-[; ;interrupts.c: 73: void low_priority interrupt low_isr(void)
-[; ;interrupts.c: 81: {
+[; ;interrupts.c: 69: void low_priority interrupt low_isr(void)
+[; ;interrupts.c: 77: {
 [e :U _low_isr ]
 [f ]
-[; ;interrupts.c: 84: if(INTCONbits.TMR0IF)
-"84
+[; ;interrupts.c: 80: if(INTCONbits.TMR0IF)
+"80
 [e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 2680  ]
-[; ;interrupts.c: 85: {
-"85
+[; ;interrupts.c: 81: {
+"81
 {
-[; ;interrupts.c: 86: INTCONbits.TMR0IF=0;
-"86
+[; ;interrupts.c: 82: INTCONbits.TMR0IF=0;
+"82
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-[; ;interrupts.c: 88: SoundTimerTicked=1;
-"88
-[e = _SoundTimerTicked -> -> 1 `i `uc ]
-[; ;interrupts.c: 89: KeybMsg.KeybTimerTicked=1;
-"89
-[e = . _KeybMsg 6 -> -> 1 `i `uc ]
-[; ;interrupts.c: 93: if(SoundMsg.SoundType==1)
-"93
-[e $ ! == -> . _SoundMsg 0 `i -> 1 `i 2681  ]
-[; ;interrupts.c: 94: {
-"94
-{
-[; ;interrupts.c: 95: SoundMsg.OnTimeIndex++;
-"95
-[e ++ . _SoundMsg 8 -> -> 1 `i `uc ]
-"96
-}
-[e :U 2681 ]
-[; ;interrupts.c: 96: }
-[; ;interrupts.c: 98: if(SoundMsg.SoundType==2 && SoundMsg.CurrentPhase==1)
-"98
-[e $ ! && == -> . _SoundMsg 0 `i -> 2 `i == -> . _SoundMsg 4 `i -> 1 `i 2682  ]
-[; ;interrupts.c: 99: {
-"99
-{
-[; ;interrupts.c: 100: SoundMsg.OnTimeIndex++;
-"100
-[e ++ . _SoundMsg 8 -> -> 1 `i `uc ]
-"101
-}
-[e :U 2682 ]
-[; ;interrupts.c: 101: }
-[; ;interrupts.c: 103: if(SoundMsg.SoundType==2 && SoundMsg.CurrentPhase==2)
-"103
-[e $ ! && == -> . _SoundMsg 0 `i -> 2 `i == -> . _SoundMsg 4 `i -> 2 `i 2683  ]
-[; ;interrupts.c: 104: {
-"104
-{
-[; ;interrupts.c: 105: SoundMsg.OffTimeIndex++;
-"105
-[e ++ . _SoundMsg 9 -> -> 1 `i `uc ]
-"106
-}
-[e :U 2683 ]
-[; ;interrupts.c: 106: }
-[; ;interrupts.c: 110: if( KeybMsg.KeybCode!=0x00 && !KeybMsg.LongPressDetected)
-"110
-[e $ ! && != -> . _KeybMsg 0 `i -> 0 `i ! != -> . _KeybMsg 3 `i -> -> -> 0 `i `uc `i 2684  ]
-[; ;interrupts.c: 111: {
-"111
-{
-[; ;interrupts.c: 112: KeybMsg.LongPressIndex++;
-"112
-[e ++ . _KeybMsg 5 -> -> 1 `i `uc ]
-"113
-}
-[e :U 2684 ]
-[; ;interrupts.c: 113: }
-[; ;interrupts.c: 115: if( KeybMsg.KeybCode!=0x00 && KeybMsg.LongPressDetected)
-"115
-[e $ ! && != -> . _KeybMsg 0 `i -> 0 `i != -> . _KeybMsg 3 `i -> -> -> 0 `i `uc `i 2685  ]
-[; ;interrupts.c: 116: {
-"116
-{
-[; ;interrupts.c: 117: KeybMsg.FirePressIndex++;
-"117
-[e ++ . _KeybMsg 4 -> -> 1 `i `uc ]
-"118
-}
-[e :U 2685 ]
-[; ;interrupts.c: 118: }
-[; ;interrupts.c: 120: TMR0H = 0xFB;
-"120
+[; ;interrupts.c: 84: msTickCounter=1;
+"84
+[e = _msTickCounter -> -> 1 `i `uc ]
+[; ;interrupts.c: 86: TMR0H = 0xFB;
+"86
 [e = _TMR0H -> -> 251 `i `uc ]
-[; ;interrupts.c: 121: TMR0L = 0x1E;
-"121
+[; ;interrupts.c: 87: TMR0L = 0x1E;
+"87
 [e = _TMR0L -> -> 30 `i `uc ]
-"123
+"89
 }
 [e :U 2680 ]
-[; ;interrupts.c: 123: }
-[; ;interrupts.c: 126: }
-"126
+[; ;interrupts.c: 89: }
+[; ;interrupts.c: 92: }
+"92
 [e :UE 2679 ]
 }

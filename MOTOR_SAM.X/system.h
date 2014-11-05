@@ -19,11 +19,9 @@
 
 
 
-struct RTC_counter {
-    unsigned char AccelTick_ms;
-    unsigned char GyroTick_ms;
-    unsigned char MagnetTick_ms;
-
+struct MotionOrder{
+    unsigned char PowerValue;
+    unsigned char direction;
 };
 
 struct CANTxMsg{
@@ -121,3 +119,6 @@ void ConfigureTimers(void);         /* handles timers configuration*/
 char SystemTest(void);
 void ConfigureCCP(void);
 char GetCanAdress(void);
+char GetKeyCode(void);
+
+char GetThrotle(void);
